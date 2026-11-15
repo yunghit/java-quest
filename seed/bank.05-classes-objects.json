@@ -1,0 +1,136 @@
+{
+ "bank": [
+  {
+   "topic": 5,
+   "type": "mc",
+   "q": "Which statement about a class is true?",
+   "options": [
+    "It uses memory for every field when declared",
+    "It is a blueprint; memory for fields is used when objects are created",
+    "It can only have one object",
+    "It must be static"
+   ],
+   "answer": 1,
+   "why": "Objects, not classes, hold field values."
+  },
+  {
+   "topic": 5,
+   "type": "mc",
+   "q": "What does the default constructor look like?",
+   "options": [
+    "It has parameters",
+    "It has no parameters and is supplied only if you write no constructor",
+    "It returns void",
+    "It is private"
+   ],
+   "answer": 1,
+   "why": "Writing any constructor removes it."
+  },
+  {
+   "topic": 5,
+   "type": "mc",
+   "q": "Which keyword refers to the current object?",
+   "options": [
+    "super",
+    "this",
+    "self",
+    "current"
+   ],
+   "answer": 1,
+   "why": "this."
+  },
+  {
+   "topic": 5,
+   "type": "mc",
+   "q": "Fields declared private can be accessed directly from?",
+   "options": [
+    "Any class",
+    "The same class only",
+    "The same package",
+    "Subclasses"
+   ],
+   "answer": 1,
+   "why": "Use getters elsewhere."
+  },
+  {
+   "topic": 5,
+   "type": "mc",
+   "q": "Student s = null; s.getName(); throws?",
+   "options": [
+    "ArithmeticException",
+    "NullPointerException",
+    "IOException",
+    "Nothing"
+   ],
+   "answer": 1,
+   "why": "The reference points to no object."
+  },
+  {
+   "topic": 5,
+   "type": "mc",
+   "q": "Book a = new Book(\"X\"); Book b = a; b.setTitle(\"Y\"); a.getTitle() is?",
+   "options": [
+    "X",
+    "Y",
+    "null",
+    "Error"
+   ],
+   "answer": 1,
+   "why": "Same object."
+  },
+  {
+   "topic": 5,
+   "type": "mc",
+   "q": "Which creates two separate objects?",
+   "options": [
+    "Book a = new Book(); Book b = a;",
+    "Book a = new Book(); Book b = new Book();",
+    "Book a, b;",
+    "Book a = b;"
+   ],
+   "answer": 1,
+   "why": "Each new makes one object."
+  },
+  {
+   "topic": 5,
+   "type": "mc",
+   "q": "A static field is shared by?",
+   "options": [
+    "Each object separately",
+    "All objects of the class",
+    "Only the first object",
+    "No object"
+   ],
+   "answer": 1,
+   "why": "One copy per class."
+  },
+  {
+   "topic": 5,
+   "type": "short",
+   "q": "Distinguish between a class and an object.",
+   "model": "A class is a blueprint defining fields and methods; an object is a real instance created with new, with its own copy of the fields.",
+   "marks": 3
+  },
+  {
+   "topic": 5,
+   "type": "short",
+   "q": "What is encapsulation and why is it useful?",
+   "model": "Hiding fields as private and exposing them through public getters/setters. It protects data, allows validation and lets the class change internally without breaking other code.",
+   "marks": 4
+  },
+  {
+   "topic": 5,
+   "type": "short",
+   "q": "List the rules for a constructor.",
+   "model": "Same name as the class; no return type; runs automatically with new; may be overloaded; a default no-argument constructor is supplied only when none is written.",
+   "marks": 4
+  },
+  {
+   "topic": 5,
+   "type": "project",
+   "title": "Mini project: Library",
+   "brief": "Write Book (private title, author, price, constructor, getters, toString) and Library with an ArrayList<Book>, addBook, printAll and cheapest() returning the lowest-priced book. In main add 4 books and print the cheapest.",
+   "solution": "class Library {\n  private ArrayList<Book> books = new ArrayList<>();\n  void addBook(Book b) { books.add(b); }\n  void printAll() { for (Book b : books) System.out.println(b); }\n  Book cheapest() {\n    Book c = books.get(0);\n    for (Book b : books) if (b.getPrice() < c.getPrice()) c = b;\n    return c;\n  }\n}"
+  }
+ ]
+}

@@ -1,0 +1,123 @@
+[
+ {
+  "order": 8,
+  "emoji": "✂️",
+  "title": "8 · StringTokenizer & Math (Deep Dive)",
+  "learn": "<h3>The story: slicing bread</h3><p>A sentence is a loaf. A <b>StringTokenizer</b> slices it into pieces called <b>tokens</b>. By default it cuts on whitespace (spaces, tabs, newlines). Import <code>java.util.StringTokenizer</code>.</p><h3>The three methods</h3><p><b>hasMoreTokens()</b>: true while pieces remain. <b>nextToken()</b>: returns the next piece and moves on. <b>countTokens()</b>: how many pieces are <b>left</b> (not yet consumed), so it drops as you read. Calling nextToken() with none left throws NoSuchElementException, hence the hasMoreTokens() guard.</p><h3>Custom delimiters</h3><p>Pass the cutting characters as a second argument: <code>new StringTokenizer(\"a,b;c\", \",;\")</code>. Each character in that string is a delimiter. A third argument true would return the delimiters themselves as tokens.</p><h3>When to use it</h3><p>CSV-style lines read from a file, simple command parsing, counting words. It is a <b>legacy</b> class (String.split() is modern) but your syllabus tests it.</p><h3>The Math class: a free calculator</h3><p>In java.lang so <b>no import</b>, every method <b>static</b>: call Math.sqrt(16). Key members: <b>pow(b,e)</b> (returns double: Math.pow(2,3) = 8.0), <b>sqrt(n)</b>, <b>abs(n)</b>, <b>max(a,b)</b>, <b>min(a,b)</b>, <b>round(n)</b> (nearest whole: round(4.5) = 5, round(-4.5) = -4), <b>ceil(n)</b> (up), <b>floor(n)</b> (down), <b>random()</b> and constants <b>Math.PI</b>, <b>Math.E</b>.</p><h3>Random numbers made easy</h3><p><code>Math.random()</code> gives 0.0 up to <b>but not including</b> 1.0. To get a whole number from low to high: <code>(int)(Math.random() * (high - low + 1)) + low</code>. Dice: (int)(Math.random()*6)+1. Walk through it: random()*6 gives 0.0-5.99, the cast chops to 0-5, +1 makes 1-6.</p><h3>Return types matter</h3><p>pow and sqrt return double, so <code>int x = Math.pow(2,3);</code> will not compile: cast it. round(double) returns long, round(float) returns int.</p>",
+  "code": "import java.util.StringTokenizer;\npublic class Tools {\n    public static void main(String[] args) {\n        StringTokenizer st = new StringTokenizer(\"Java is fun to learn\");\n        System.out.println(st.countTokens());        // 5\n        st.nextToken();\n        System.out.println(st.countTokens());        // 4 (tokens LEFT)\n\n        StringTokenizer csv = new StringTokenizer(\"apple,banana;orange\", \",;\");\n        while (csv.hasMoreTokens()) System.out.println(csv.nextToken());\n\n        System.out.println(Math.pow(2, 3));          // 8.0\n        System.out.println(Math.sqrt(49));           // 7.0\n        System.out.println(Math.round(4.6));         // 5\n        System.out.println(Math.ceil(4.1) + \" \" + Math.floor(4.9)); // 5.0 4.0\n        System.out.println(Math.abs(-15) + \" \" + Math.max(10, 25)); // 15 25\n        int dice = (int)(Math.random() * 6) + 1;     // 1..6\n        int pick = (int)(Math.random() * 10) + 1;    // 1..10\n        int power = (int) Math.pow(2, 10);           // cast needed\n    }\n}",
+  "quiz": [
+   {
+    "q": "countTokens() on \"Java is fun\"?",
+    "options": [
+     "2",
+     "3",
+     "4",
+     "1"
+    ],
+    "answer": 1,
+    "why": "Three words."
+   },
+   {
+    "q": "After one nextToken(), countTokens() on a 5-token string?",
+    "options": [
+     "5",
+     "4",
+     "1",
+     "0"
+    ],
+    "answer": 1,
+    "why": "It counts tokens left."
+   },
+   {
+    "q": "Default delimiters of StringTokenizer?",
+    "options": [
+     "Commas",
+     "Whitespace",
+     "Semicolons",
+     "None"
+    ],
+    "answer": 1,
+    "why": "Spaces, tabs, newlines."
+   },
+   {
+    "q": "Math.pow(2,3) returns?",
+    "options": [
+     "8",
+     "8.0",
+     "6",
+     "9"
+    ],
+    "answer": 1,
+    "why": "It returns a double."
+   },
+   {
+    "q": "Math.round(4.6)?",
+    "options": [
+     "4",
+     "5",
+     "4.6",
+     "6"
+    ],
+    "answer": 1,
+    "why": "Nearest whole number."
+   },
+   {
+    "q": "Math.random() range?",
+    "options": [
+     "0 to 1 inclusive",
+     "0.0 up to but not 1.0",
+     "1 to 10",
+     "-1 to 1"
+    ],
+    "answer": 1,
+    "why": "Never exactly 1.0."
+   },
+   {
+    "q": "Expression for a random int 1 to 10?",
+    "options": [
+     "(int)(Math.random()*10)",
+     "(int)(Math.random()*10)+1",
+     "Math.random()*10+1",
+     "(int)Math.random()*10"
+    ],
+    "answer": 1,
+    "why": "Multiply, cast, then shift."
+   },
+   {
+    "q": "Why does int x = Math.sqrt(16); fail?",
+    "options": [
+     "sqrt is private",
+     "It returns double",
+     "Needs import",
+     "Wrong name"
+    ],
+    "answer": 1,
+    "why": "Cast or use double."
+   },
+   {
+    "q": "Do you import java.lang.Math?",
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "answer": 1,
+    "why": "java.lang is automatic."
+   },
+   {
+    "q": "nextToken() with no tokens left throws?",
+    "options": [
+     "NoSuchElementException",
+     "IOException",
+     "ArithmeticException",
+     "Nothing"
+    ],
+    "answer": 0,
+    "why": "Guard with hasMoreTokens()."
+   }
+  ],
+  "lab": {
+   "task": "Write a method that takes the sentence 'red,green;blue yellow' and prints each token on its own line, then prints how many there were. Then write rollTwoDice() that returns the sum of two random dice.",
+   "solution": "static void tokens() {\n  StringTokenizer st = new StringTokenizer(\"red,green;blue yellow\", \",; \");\n  int n = st.countTokens();\n  while (st.hasMoreTokens()) System.out.println(st.nextToken());\n  System.out.println(n);\n}\nstatic int rollTwoDice() {\n  int a = (int)(Math.random() * 6) + 1;\n  int b = (int)(Math.random() * 6) + 1;\n  return a + b;\n}"
+  }
+ }
+]

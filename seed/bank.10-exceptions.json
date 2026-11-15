@@ -1,0 +1,103 @@
+{
+ "bank": [
+  {
+   "topic": 10,
+   "type": "mc",
+   "q": "Which is unchecked?",
+   "options": [
+    "IOException",
+    "SQLException",
+    "ArithmeticException",
+    "FileNotFoundException"
+   ],
+   "answer": 2,
+   "why": "RuntimeException subclass."
+  },
+  {
+   "topic": 10,
+   "type": "mc",
+   "q": "finally runs:",
+   "options": [
+    "Only on error",
+    "Only without error",
+    "Always",
+    "Never"
+   ],
+   "answer": 2,
+   "why": "Cleanup."
+  },
+  {
+   "topic": 10,
+   "type": "mc",
+   "q": "throw new X(); does what?",
+   "options": [
+    "Declares",
+    "Triggers an exception",
+    "Catches",
+    "Ignores"
+   ],
+   "answer": 1,
+   "why": "throw triggers."
+  },
+  {
+   "topic": 10,
+   "type": "mc",
+   "q": "Which catch order compiles?",
+   "options": [
+    "Exception then ArithmeticException",
+    "ArithmeticException then Exception",
+    "Both",
+    "Neither"
+   ],
+   "answer": 1,
+   "why": "Specific first."
+  },
+  {
+   "topic": 10,
+   "type": "mc",
+   "q": "Integer.parseInt(\"x\") throws?",
+   "options": [
+    "NumberFormatException",
+    "IOException",
+    "SQLException",
+    "None"
+   ],
+   "answer": 0,
+   "why": "Unchecked."
+  },
+  {
+   "topic": 10,
+   "type": "mc",
+   "q": "A custom checked exception extends?",
+   "options": [
+    "Error",
+    "Exception",
+    "RuntimeException",
+    "Object"
+   ],
+   "answer": 1,
+   "why": "Exception."
+  },
+  {
+   "topic": 10,
+   "type": "short",
+   "q": "Differentiate checked and unchecked exceptions with an example of each.",
+   "model": "Checked are verified at compile time and must be handled or declared (IOException); unchecked occur at run time and handling is optional (NullPointerException).",
+   "marks": 4
+  },
+  {
+   "topic": 10,
+   "type": "short",
+   "q": "Explain throw vs throws.",
+   "model": "throw triggers an exception inside a method; throws declares in the signature that the method may pass a checked exception to its caller.",
+   "marks": 3
+  },
+  {
+   "topic": 10,
+   "type": "project",
+   "title": "Mini project: Safe calculator",
+   "brief": "Write a method calc(String a, String op, String b) that parses two numbers and applies + - * /, handling NumberFormatException, division by zero and an unknown operator with meaningful messages.",
+   "solution": "static String calc(String a, String op, String b) {\n  try {\n    double x = Double.parseDouble(a), y = Double.parseDouble(b);\n    switch (op) {\n      case \"+\": return \"\" + (x + y); case \"-\": return \"\" + (x - y); case \"*\": return \"\" + (x * y);\n      case \"/\": if (y == 0) throw new ArithmeticException(\"Cannot divide by zero\"); return \"\" + (x / y);\n      default: throw new IllegalArgumentException(\"Unknown operator\");\n    }\n  } catch (NumberFormatException e) { return \"Enter numbers only\"; }\n  catch (RuntimeException e) { return e.getMessage(); }\n}"
+  }
+ ]
+}

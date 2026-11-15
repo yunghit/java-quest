@@ -1,0 +1,98 @@
+{
+ "title": "Past Test: COMP 311 Theory Test 1 (9 Oct 2024, 70 marks)",
+ "minutes": 120,
+ "sections": [
+  {
+   "name": "Section A (32 marks)",
+   "type": "written",
+   "questions": [
+    {
+     "q": "State 2 disadvantages of using arrays to store information.",
+     "model": "1) Fixed size: it cannot grow or shrink after creation. 2) Holds only one data type (homogeneous). Bonus: inserting or deleting in the middle means shifting elements manually.",
+     "marks": 2
+    },
+    {
+     "q": "With the aid of a diagram, state 3 stages of Java execution of a program, from the time of writing the code until execution.",
+     "model": "Diagram: Source code (.java) --javac--> Bytecode (.class) --JVM--> Running program. Stages: (1) write source code; (2) compile with javac into bytecode; (3) the JVM loads and executes the bytecode.",
+     "marks": 3
+    },
+    {
+     "q": "Explain the difference between method overloading and method overriding.",
+     "model": "Overloading: same class, same name, DIFFERENT parameter lists, resolved at compile time. Overriding: subclass replaces an inherited method with the IDENTICAL signature, resolved at run time (runtime polymorphism). Overloading cannot differ by return type alone; overriding needs inheritance.",
+     "marks": 4
+    },
+    {
+     "q": "State the difference between a double and a float variable in Java.",
+     "model": "double: 64 bits, about 15 digits of precision, the default decimal type. float: 32 bits, about 6-7 digits, literals need the f suffix (3.14f).",
+     "marks": 2
+    },
+    {
+     "q": "Write a method that takes 2 double variables (a and b) and returns the answer to a divided by b.",
+     "model": "public static double divide(double a, double b) {\n    return a / b;\n}",
+     "marks": 4
+    },
+    {
+     "q": "Write a method called isPalindrome which takes a String as a parameter and returns true if it reads the same from either side (dad, mum), otherwise false.",
+     "model": "public static boolean isPalindrome(String s) {\n    String rev = \"\";\n    for (int i = s.length() - 1; i >= 0; i--) rev += s.charAt(i);\n    return s.equals(rev);   // equals, not ==\n}",
+     "marks": 5
+    },
+    {
+     "q": "hello.txt contains 5 numbers on one line: 22 33 44 55 66. Write a void method (not a class) called process, taking the file path as a parameter, that goes through the file and prints the sum of all the numbers. Deal with any exception that may be thrown.",
+     "model": "public static void process(String path) {\n  try (Scanner sc = new Scanner(new FileReader(path))) {\n    int sum = 0;\n    while (sc.hasNextInt()) sum += sc.nextInt();\n    System.out.println(\"Sum = \" + sum);   // 220\n  } catch (FileNotFoundException e) {\n    System.out.println(\"File not found: \" + e.getMessage());\n  }\n}\n// imports: java.io.*, java.util.Scanner",
+     "marks": 7
+    },
+    {
+     "q": "Use the table to write a switch case statement: Monday, Tuesday -> \"unwind\"; Wednesday -> \"break\"; Thursday -> \"Ladies Night\"; any other day -> \"party\".",
+     "model": "switch (day) {\n  case \"Monday\":\n  case \"Tuesday\": System.out.println(\"unwind\"); break;\n  case \"Wednesday\": System.out.println(\"break\"); break;\n  case \"Thursday\": System.out.println(\"Ladies Night\"); break;\n  default: System.out.println(\"party\");\n}",
+     "marks": 5
+    }
+   ]
+  },
+  {
+   "name": "Section B (38 marks): Classes",
+   "type": "written",
+   "questions": [
+    {
+     "q": "Create a class that represents a football team. The class FootballTeam should be accessible from any package.",
+     "model": "public class FootballTeam {",
+     "marks": 2
+    },
+    {
+     "q": "Add fields for name of the team, number of wins and number of losses, which cannot be accessed outside the class.",
+     "model": "private String name;\nprivate int wins;\nprivate int losses;",
+     "marks": 3
+    },
+    {
+     "q": "Write a constructor that accepts the name, wins and losses and sets the properties. It should be accessible from any package.",
+     "model": "public FootballTeam(String name, int wins, int losses) {\n  this.name = name; this.wins = wins; this.losses = losses;\n}",
+     "marks": 5
+    },
+    {
+     "q": "Write a second constructor that takes only the name; set wins and losses to 0. Accessible from any package.",
+     "model": "public FootballTeam(String name) {\n  this.name = name; this.wins = 0; this.losses = 0;\n}",
+     "marks": 4
+    },
+    {
+     "q": "Write 3 methods that return the name, the number of wins and the number of losses. Accessible from any package.",
+     "model": "public String getName() { return name; }\npublic int getWins() { return wins; }\npublic int getLosses() { return losses; }",
+     "marks": 6
+    },
+    {
+     "q": "Write a method to increase wins by 1 and another to increase losses by 1. These methods should only be accessible from INSIDE the football package.",
+     "model": "void addWin() { wins++; }      // no modifier = package-private\nvoid addLoss() { losses++; }",
+     "marks": 4
+    },
+    {
+     "q": "Write a method that returns true when a team has a good record, meaning more wins than losses. Accessible from any package.",
+     "model": "public boolean hasGoodRecord() {\n  return wins > losses;\n}",
+     "marks": 4
+    },
+    {
+     "q": "Add a main method and, within it: (a) construct a FootballTeam named \"AITI\" with 3 wins and 5 losses [2]; (b) call the good-record method and print the result [2]; (c) make three calls to the method that increases wins by 1 [3]; (d) call the good-record method again and print the result [2].",
+     "model": "public static void main(String[] args) {\n  FootballTeam t = new FootballTeam(\"AITI\", 3, 5);\n  System.out.println(t.hasGoodRecord());   // false\n  t.addWin(); t.addWin(); t.addWin();      // wins = 6\n  System.out.println(t.hasGoodRecord());   // true\n}",
+     "marks": 9
+    }
+   ]
+  }
+ ]
+}

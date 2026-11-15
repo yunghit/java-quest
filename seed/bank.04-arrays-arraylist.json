@@ -1,0 +1,103 @@
+{
+ "bank": [
+  {
+   "topic": 4,
+   "type": "mc",
+   "q": "int[] a = new int[3]; a[1] is?",
+   "options": [
+    "null",
+    "0",
+    "1",
+    "error"
+   ],
+   "answer": 1,
+   "why": "Default 0."
+  },
+  {
+   "topic": 4,
+   "type": "mc",
+   "q": "Which sorts an array?",
+   "options": [
+    "a.sort()",
+    "Arrays.sort(a)",
+    "sort(a)",
+    "a.order()"
+   ],
+   "answer": 1,
+   "why": "java.util.Arrays."
+  },
+  {
+   "topic": 4,
+   "type": "mc",
+   "q": "ArrayList<String> list; to add use?",
+   "options": [
+    "list.push(x)",
+    "list.add(x)",
+    "list.put(x)",
+    "list.insert(x)"
+   ],
+   "answer": 1,
+   "why": "add."
+  },
+  {
+   "topic": 4,
+   "type": "mc",
+   "q": "Which gets the element at index 2 from an ArrayList?",
+   "options": [
+    "list[2]",
+    "list.get(2)",
+    "list.at(2)",
+    "list.item(2)"
+   ],
+   "answer": 1,
+   "why": "get."
+  },
+  {
+   "topic": 4,
+   "type": "mc",
+   "q": "int[][] g = new int[2][3]; g.length is?",
+   "options": [
+    "2",
+    "3",
+    "5",
+    "6"
+   ],
+   "answer": 0,
+   "why": "Rows."
+  },
+  {
+   "topic": 4,
+   "type": "mc",
+   "q": "Which list type can hold primitives directly?",
+   "options": [
+    "ArrayList<int>",
+    "ArrayList<Integer>",
+    "neither",
+    "both"
+   ],
+   "answer": 1,
+   "why": "Use the wrapper."
+  },
+  {
+   "topic": 4,
+   "type": "short",
+   "q": "State three differences between an array and an ArrayList.",
+   "model": "Array: fixed size, primitives or objects, length field. ArrayList: dynamic, objects only, size() method.",
+   "marks": 3
+  },
+  {
+   "topic": 4,
+   "type": "short",
+   "q": "What is autoboxing?",
+   "model": "Automatic conversion of a primitive to its wrapper object, e.g. list.add(5) boxes int to Integer.",
+   "marks": 2
+  },
+  {
+   "topic": 4,
+   "type": "project",
+   "title": "Mini project: Class marks",
+   "brief": "Store 8 marks in an array. Print the average, highest, lowest, and copy marks above 50 into an ArrayList<Integer> and print it.",
+   "solution": "int[] m = {45, 80, 62, 30, 91, 55, 70, 48};\nint sum = 0, max = m[0], min = m[0];\nArrayList<Integer> pass = new ArrayList<>();\nfor (int x : m) { sum += x; if (x > max) max = x; if (x < min) min = x; if (x > 50) pass.add(x); }\nSystem.out.println((double) sum / m.length + \" \" + max + \" \" + min + \" \" + pass);"
+  }
+ ]
+}

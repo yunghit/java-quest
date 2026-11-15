@@ -1,0 +1,103 @@
+{
+ "bank": [
+  {
+   "topic": 7,
+   "type": "mc",
+   "q": "Which writes text to a file?",
+   "options": [
+    "Scanner",
+    "PrintWriter",
+    "StringTokenizer",
+    "Math"
+   ],
+   "answer": 1,
+   "why": "PrintWriter."
+  },
+  {
+   "topic": 7,
+   "type": "mc",
+   "q": "Which reads a file with Scanner?",
+   "options": [
+    "new Scanner(new FileReader(path))",
+    "new Scanner(path)",
+    "new File(path).read()",
+    "Scanner.read(path)"
+   ],
+   "answer": 0,
+   "why": "FileReader inside Scanner."
+  },
+  {
+   "topic": 7,
+   "type": "mc",
+   "q": "Which exception does a missing file cause?",
+   "options": [
+    "FileNotFoundException",
+    "ArithmeticException",
+    "SQLException",
+    "NullPointerException"
+   ],
+   "answer": 0,
+   "why": "A checked exception."
+  },
+  {
+   "topic": 7,
+   "type": "mc",
+   "q": "Which loop condition reads every line?",
+   "options": [
+    "hasNextLine()",
+    "nextLine()",
+    "isEmpty()",
+    "size()"
+   ],
+   "answer": 0,
+   "why": "Test then read."
+  },
+  {
+   "topic": 7,
+   "type": "mc",
+   "q": "Why close a file?",
+   "options": [
+    "Frees resources and flushes output",
+    "Deletes it",
+    "Speeds reading",
+    "Required by Scanner only"
+   ],
+   "answer": 0,
+   "why": "Output may be buffered."
+  },
+  {
+   "topic": 7,
+   "type": "mc",
+   "q": "try-with-resources ______ the resource.",
+   "options": [
+    "opens twice",
+    "closes automatically",
+    "ignores",
+    "deletes"
+   ],
+   "answer": 1,
+   "why": "Automatic close."
+  },
+  {
+   "topic": 7,
+   "type": "short",
+   "q": "Explain the difference between throws and try/catch for file errors.",
+   "model": "try/catch handles the problem where it occurs; throws passes the responsibility to the calling method.",
+   "marks": 3
+  },
+  {
+   "topic": 7,
+   "type": "short",
+   "q": "How do you append to a file instead of overwriting?",
+   "model": "Wrap a FileWriter opened with true: new PrintWriter(new FileWriter(path, true)).",
+   "marks": 2
+  },
+  {
+   "topic": 7,
+   "type": "project",
+   "title": "Mini project: Student file",
+   "brief": "Read students.txt where each line is 'name mark'. Print the average mark and write names with marks below 50 to failed.txt, handling exceptions.",
+   "solution": "try (Scanner sc = new Scanner(new FileReader(\"students.txt\")); PrintWriter out = new PrintWriter(\"failed.txt\")) {\n  int sum = 0, n = 0;\n  while (sc.hasNext()) { String name = sc.next(); int m = sc.nextInt(); sum += m; n++; if (m < 50) out.println(name); }\n  System.out.println(n == 0 ? 0 : (double) sum / n);\n} catch (IOException e) { System.out.println(e.getMessage()); }"
+  }
+ ]
+}

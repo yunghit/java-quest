@@ -1,0 +1,103 @@
+{
+ "bank": [
+  {
+   "topic": 6,
+   "type": "mc",
+   "q": "Which is the method signature?",
+   "options": [
+    "Return type + name",
+    "Name + parameter types",
+    "Modifier + name",
+    "Body"
+   ],
+   "answer": 1,
+   "why": "Name and parameters."
+  },
+  {
+   "topic": 6,
+   "type": "mc",
+   "q": "void methods:",
+   "options": [
+    "Must return int",
+    "Return nothing",
+    "Cannot take parameters",
+    "Must be static"
+   ],
+   "answer": 1,
+   "why": "No value returned."
+  },
+  {
+   "topic": 6,
+   "type": "mc",
+   "q": "Which is valid overloading?",
+   "options": [
+    "int f(int a) and double f(int a)",
+    "int f(int a) and int f(double a)",
+    "int f() and int f()",
+    "void f() and void f()"
+   ],
+   "answer": 1,
+   "why": "Parameter types differ."
+  },
+  {
+   "topic": 6,
+   "type": "mc",
+   "q": "Passing an int to a method:",
+   "options": [
+    "Passes a copy",
+    "Passes the variable itself",
+    "Passes the address",
+    "Fails"
+   ],
+   "answer": 0,
+   "why": "Pass by value."
+  },
+  {
+   "topic": 6,
+   "type": "mc",
+   "q": "A recursive method needs?",
+   "options": [
+    "A loop",
+    "A base case",
+    "A static field",
+    "A return of void"
+   ],
+   "answer": 1,
+   "why": "To stop the recursion."
+  },
+  {
+   "topic": 6,
+   "type": "mc",
+   "q": "Which can call an instance method directly?",
+   "options": [
+    "main without an object",
+    "A static method",
+    "An instance method of the same class",
+    "Neither"
+   ],
+   "answer": 2,
+   "why": "Instance methods have this."
+  },
+  {
+   "topic": 6,
+   "type": "short",
+   "q": "Differentiate parameters and arguments.",
+   "model": "Parameters are the variables in the method declaration; arguments are the actual values passed in the call.",
+   "marks": 2
+  },
+  {
+   "topic": 6,
+   "type": "short",
+   "q": "Explain pass by value with an example.",
+   "model": "Java passes a copy of the value, so changing a primitive parameter does not change the caller's variable: increment(v) leaves v unchanged.",
+   "marks": 3
+  },
+  {
+   "topic": 6,
+   "type": "project",
+   "title": "Mini project: Math helper class",
+   "brief": "Write a class with static methods isPrime(int), gcd(int,int) and fibonacci(int) (recursive), and test each from main.",
+   "solution": "static boolean isPrime(int n) { if (n < 2) return false; for (int i = 2; i * i <= n; i++) if (n % i == 0) return false; return true; }\nstatic int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }\nstatic int fibonacci(int n) { return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2); }"
+  }
+ ]
+}

@@ -1,0 +1,125 @@
+[
+ {
+  "order": 2,
+  "emoji": "🔤",
+  "title": "2 · Strings, Scanner & Conditionals (Deep Dive)",
+  "learn": "<h3>Strings: a necklace of characters</h3><p>A String is an object holding a sequence of characters, indexed from <b>0</b>. It is <b>immutable</b>: methods never change the original, they return a new String. Common methods: <code>length()</code>, <code>charAt(i)</code>, <code>indexOf(c)</code>, <code>substring(b, e)</code> (includes b, stops <b>before</b> e), <code>toUpperCase()</code>, <code>trim()</code>, <code>equalsIgnoreCase(x)</code>. Joining uses +.</p><h3>The great trap: == vs equals</h3><p>== compares <b>addresses</b> (is it the very same object?). <b>.equals()</b> compares the <b>text</b>. Two Strings built with new can hold identical text yet be different objects, so == gives false. Rule: <b>always use .equals()</b> to compare Strings.</p><h3>Scanner: listening to the keyboard</h3><p>Three steps: import java.util.Scanner, create <code>new Scanner(System.in)</code>, call a method: <b>next()</b> (one word), <b>nextInt()</b>, <b>nextDouble()</b>, <b>nextLine()</b> (whole line). The notorious bug: after nextInt() the Enter key is still waiting in the input, so the next nextLine() grabs that empty leftover. Fix: call nextLine() once to throw it away. Close with sc.close().</p><h3>if / else if / else</h3><p>Java checks top to bottom and runs only the <b>first</b> true branch. Combine tests with <b>&&</b> (and), <b>||</b> (or), <b>!</b> (not). Comparison operators: ==, !=, <, >, <=, >=. A single = assigns, a classic slip. Order matters: test the highest range first (score >= 75 before score >= 50) or every high score lands in the wrong branch.</p><h3>switch: a menu for exact values</h3><p>switch compares one value against case labels. <b>break</b> stops execution; without it Java <b>falls through</b> into the next case, which you can use deliberately to share one action between labels (Monday and Tuesday both print “unwind”). <b>default</b> catches everything else. Use if/else for ranges, switch for fixed values.</p><h3>The ternary shortcut</h3><p><code>String r = (score >= 50) ? \"Pass\" : \"Fail\";</code> means: if true take the first value, else the second.</p>",
+  "code": "import java.util.Scanner;\npublic class Greeter {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        System.out.print(\"Age: \");\n        int age = sc.nextInt();\n        sc.nextLine();                         // throw away the leftover Enter\n        System.out.print(\"Full name: \");\n        String name = sc.nextLine();\n\n        String a = new String(\"hi\"), b = new String(\"hi\");\n        System.out.println(a == b);            // false (different objects)\n        System.out.println(a.equals(b));       // true  (same text)\n        System.out.println(\"Hello\".substring(1, 3)); // el\n\n        if (age >= 18 && name.length() > 0) System.out.println(\"Welcome \" + name);\n        else System.out.println(\"Too young\");\n\n        switch (name.toLowerCase()) {\n            case \"monday\": case \"tuesday\": System.out.println(\"unwind\"); break;\n            case \"wednesday\": System.out.println(\"break\"); break;\n            default: System.out.println(\"party\");\n        }\n    }\n}",
+  "quiz": [
+   {
+    "q": "\"Hello\".charAt(1) is?",
+    "options": [
+     "'H'",
+     "'e'",
+     "'l'",
+     "'o'"
+    ],
+    "answer": 1,
+    "why": "Index starts at 0."
+   },
+   {
+    "q": "\"Hello\".substring(1,3)?",
+    "options": [
+     "Hel",
+     "el",
+     "ell",
+     "He"
+    ],
+    "answer": 1,
+    "why": "Starts at 1, stops before 3."
+   },
+   {
+    "q": "Best way to compare Strings?",
+    "options": [
+     "==",
+     ".equals()",
+     "=",
+     ".is()"
+    ],
+    "answer": 1,
+    "why": "== compares addresses."
+   },
+   {
+    "q": "Why does nextLine() sometimes return empty after nextInt()?",
+    "options": [
+     "Bug in Java",
+     "Enter key left in the input",
+     "Scanner is closed",
+     "int is too big"
+    ],
+    "answer": 1,
+    "why": "Add an extra nextLine()."
+   },
+   {
+    "q": "What does a missing break in a switch cause?",
+    "options": [
+     "Compile error",
+     "Fall-through into the next case",
+     "Nothing",
+     "Infinite loop"
+    ],
+    "answer": 1,
+    "why": "Execution continues."
+   },
+   {
+    "q": "Which operator means AND?",
+    "options": [
+     "||",
+     "&&",
+     "!",
+     "&&&"
+    ],
+    "answer": 1,
+    "why": "|| is OR."
+   },
+   {
+    "q": "Strings are?",
+    "options": [
+     "Mutable primitives",
+     "Immutable objects",
+     "Arrays of int",
+     "Keywords"
+    ],
+    "answer": 1,
+    "why": "Methods return new Strings."
+   },
+   {
+    "q": "score=80: if(score>=50)A else if(score>=75)B. Which runs?",
+    "options": [
+     "A",
+     "B",
+     "Both",
+     "Neither"
+    ],
+    "answer": 0,
+    "why": "The first true branch wins, so order matters."
+   },
+   {
+    "q": "Which suits a range test like score >= 50?",
+    "options": [
+     "switch",
+     "if/else",
+     "for",
+     "do-while"
+    ],
+    "answer": 1,
+    "why": "switch needs exact values."
+   },
+   {
+    "q": "(5 > 3) ? \"yes\" : \"no\" gives?",
+    "options": [
+     "yes",
+     "no",
+     "true",
+     "Error"
+    ],
+    "answer": 0,
+    "why": "Condition is true."
+   }
+  ],
+  "lab": {
+   "task": "Read a mark (int). Print Distinction if >= 75, Merit if >= 60, Pass if >= 50, else Fail. Then read a day name and use a switch so that monday and tuesday print unwind, thursday prints Ladies Night, anything else prints party.",
+   "solution": "Scanner sc = new Scanner(System.in);\nint m = sc.nextInt(); sc.nextLine();\nif (m >= 75) System.out.println(\"Distinction\");\nelse if (m >= 60) System.out.println(\"Merit\");\nelse if (m >= 50) System.out.println(\"Pass\");\nelse System.out.println(\"Fail\");\nString d = sc.nextLine().toLowerCase();\nswitch (d) {\n  case \"monday\": case \"tuesday\": System.out.println(\"unwind\"); break;\n  case \"thursday\": System.out.println(\"Ladies Night\"); break;\n  default: System.out.println(\"party\");\n}"
+  }
+ }
+]

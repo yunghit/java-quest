@@ -1,0 +1,125 @@
+[
+ {
+  "order": 7,
+  "emoji": "📁",
+  "title": "7 · File I/O (Deep Dive)",
+  "learn": "<h3>The story: notebooks that survive power cuts</h3><p>Variables are a whiteboard wiped when the program ends. Files are notebooks that stay. File I/O means <b>reading</b> from and <b>writing</b> to them. All the classes live in <code>java.io</code> (plus Scanner in java.util).</p><h3>Reading text: Scanner + FileReader</h3><p><code>Scanner sc = new Scanner(new FileReader(\"data.txt\"));</code> FileReader opens the file, Scanner gives you the friendly methods you already know. Read until the file runs out: <code>while (sc.hasNextLine()) sc.nextLine();</code>. Match the method to the data: <b>hasNextInt()/nextInt()</b> for numbers, <b>nextDouble()</b>, <b>next()</b> for words, <b>nextLine()</b> for whole lines. Always <b>close()</b> when finished.</p><h3>Writing text: PrintWriter</h3><p><code>PrintWriter out = new PrintWriter(\"output.txt\");</code> then <b>println</b> and <b>print</b>, exactly like System.out. You <b>must close()</b> (or flush) it, otherwise the text may stay in a buffer and never reach the file. By default it <b>overwrites</b> an existing file; to <b>append</b>, wrap a FileWriter opened with true: <code>new PrintWriter(new FileWriter(\"log.txt\", true))</code>.</p><h3>Why exceptions appear</h3><p>The file might not exist, be locked, or the path might be wrong. Java makes you deal with it. Two choices: <b>try/catch</b> (handle it here) or <b>throws</b> (hand the responsibility up to the caller, and eventually the JVM). FileReader throws <b>FileNotFoundException</b>; broader problems throw <b>IOException</b>.</p><h3>try-with-resources</h3><p>Put the resource in the parentheses after try and Java closes it for you, even if an error occurs: <code>try (Scanner sc = ...) { ... } catch (...) { ... }</code>. This is the cleanest exam answer.</p><h3>Paths</h3><p>A relative path (data.txt) starts from the program's working folder. An absolute path (C:/data/data.txt) starts from the drive root. Use forward slashes or doubled backslashes in strings.</p><h3>Common file-reading patterns</h3><p><b>Sum</b> of numbers on a line: loop with hasNextInt(). <b>Count lines</b>: counter in a hasNextLine loop. <b>Search</b> a word: compare each line with contains() or equals(). <b>Parse a CSV line</b> with StringTokenizer or split(\",\"). The exam question about summing 22 33 44 55 66 from a file is exactly the first pattern.</p>",
+  "code": "import java.io.*;\nimport java.util.*;\n\npublic class Files {\n    static void process(String path) {               // sum numbers in a file\n        try (Scanner sc = new Scanner(new FileReader(path))) {\n            int sum = 0;\n            while (sc.hasNextInt()) sum += sc.nextInt();\n            System.out.println(\"Sum = \" + sum);\n        } catch (FileNotFoundException e) {\n            System.out.println(\"File not found: \" + e.getMessage());\n        }\n    }\n    static void save(String path, ArrayList<String> lines) throws IOException {\n        try (PrintWriter out = new PrintWriter(path)) {   // overwrites\n            for (String l : lines) out.println(l);\n        }                                                 // auto-closed\n    }\n    static void logLine(String text) throws IOException { // appends\n        try (PrintWriter out = new PrintWriter(new FileWriter(\"log.txt\", true))) {\n            out.println(text);\n        }\n    }\n    public static void main(String[] args) throws IOException {\n        process(\"numbers.txt\");\n        save(\"names.txt\", new ArrayList<>(List.of(\"Amantle\", \"Kabo\")));\n    }\n}",
+  "quiz": [
+   {
+    "q": "Which package holds FileReader and PrintWriter?",
+    "options": [
+     "java.util",
+     "java.io",
+     "java.sql",
+     "javax.swing"
+    ],
+    "answer": 1,
+    "why": "java.io."
+   },
+   {
+    "q": "Why close() a PrintWriter?",
+    "options": [
+     "Style only",
+     "Buffered data may never reach the file",
+     "To delete the file",
+     "To rename it"
+    ],
+    "answer": 1,
+    "why": "Output can stay buffered."
+   },
+   {
+    "q": "Which loop condition reads integers until the file ends?",
+    "options": [
+     "hasNextLine()",
+     "hasNextInt()",
+     "nextInt()",
+     "isEmpty()"
+    ],
+    "answer": 1,
+    "why": "Test before reading."
+   },
+   {
+    "q": "FileReader on a missing file throws?",
+    "options": [
+     "ArithmeticException",
+     "FileNotFoundException",
+     "NullPointerException",
+     "SQLException"
+    ],
+    "answer": 1,
+    "why": "A subclass of IOException."
+   },
+   {
+    "q": "What does throws do on a method?",
+    "options": [
+     "Handles the error",
+     "Passes the responsibility to the caller",
+     "Ignores it forever",
+     "Creates the file"
+    ],
+    "answer": 1,
+    "why": "The caller must handle or declare it."
+   },
+   {
+    "q": "By default PrintWriter on an existing file?",
+    "options": [
+     "Appends",
+     "Overwrites",
+     "Errors",
+     "Skips"
+    ],
+    "answer": 1,
+    "why": "Use FileWriter(path, true) to append."
+   },
+   {
+    "q": "What does try-with-resources do?",
+    "options": [
+     "Catches every error",
+     "Closes the resource automatically",
+     "Reads faster",
+     "Creates a file"
+    ],
+    "answer": 1,
+    "why": "Even when an exception occurs."
+   },
+   {
+    "q": "Which reads a whole line?",
+    "options": [
+     "next()",
+     "nextInt()",
+     "nextLine()",
+     "nextDouble()"
+    ],
+    "answer": 2,
+    "why": "next() reads one word."
+   },
+   {
+    "q": "Which is an absolute path?",
+    "options": [
+     "data.txt",
+     "C:/data/data.txt",
+     "./data.txt",
+     "../data.txt"
+    ],
+    "answer": 1,
+    "why": "It starts at the drive root."
+   },
+   {
+    "q": "A catch block for file code must name?",
+    "options": [
+     "Any exception",
+     "An exception type the try can throw",
+     "Only Exception",
+     "None"
+    ],
+    "answer": 1,
+    "why": "Catching an impossible checked exception does not compile."
+   }
+  ],
+  "lab": {
+   "task": "Write a void method wordCount(String inPath, String outPath) that reads a text file, counts the lines and words, and writes 'lines=X words=Y' to the output file. Handle exceptions with try/catch.",
+   "solution": "static void wordCount(String inPath, String outPath) {\n  try (Scanner sc = new Scanner(new FileReader(inPath));\n       PrintWriter out = new PrintWriter(outPath)) {\n    int lines = 0, words = 0;\n    while (sc.hasNextLine()) {\n      String line = sc.nextLine();\n      lines++;\n      StringTokenizer st = new StringTokenizer(line);\n      words += st.countTokens();\n    }\n    out.println(\"lines=\" + lines + \" words=\" + words);\n  } catch (IOException e) {\n    System.out.println(\"Problem: \" + e.getMessage());\n  }\n}"
+  }
+ }
+]

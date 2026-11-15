@@ -1,0 +1,103 @@
+{
+ "bank": [
+  {
+   "topic": 1,
+   "type": "mc",
+   "q": "Which is a reference type?",
+   "options": [
+    "int",
+    "char",
+    "String",
+    "boolean"
+   ],
+   "answer": 2,
+   "why": "String is a class."
+  },
+  {
+   "topic": 1,
+   "type": "mc",
+   "q": "Which type holds true or false only?",
+   "options": [
+    "byte",
+    "boolean",
+    "char",
+    "short"
+   ],
+   "answer": 1,
+   "why": "boolean."
+  },
+  {
+   "topic": 1,
+   "type": "mc",
+   "q": "Which converts 3.99 to 3?",
+   "options": [
+    "(int) 3.99",
+    "Math.round(3.99)",
+    "(double) 3",
+    "3.99 / 1"
+   ],
+   "answer": 0,
+   "why": "A cast truncates."
+  },
+  {
+   "topic": 1,
+   "type": "mc",
+   "q": "Which declares a constant?",
+   "options": [
+    "const int X = 1;",
+    "final int X = 1;",
+    "static int X = 1;",
+    "int X = 1;"
+   ],
+   "answer": 1,
+   "why": "final."
+  },
+  {
+   "topic": 1,
+   "type": "mc",
+   "q": "Which is a valid identifier?",
+   "options": [
+    "9lives",
+    "my var",
+    "$total",
+    "float"
+   ],
+   "answer": 2,
+   "why": "$ and _ are allowed."
+  },
+  {
+   "topic": 1,
+   "type": "mc",
+   "q": "What does the JVM execute?",
+   "options": [
+    "Source code",
+    "Bytecode",
+    "Machine code only",
+    "HTML"
+   ],
+   "answer": 1,
+   "why": "javac produces bytecode."
+  },
+  {
+   "topic": 1,
+   "type": "short",
+   "q": "Differentiate primitive and reference types.",
+   "model": "Primitives store the value directly, are never null (int, double, char, boolean). References store the address of an object on the heap and can be null (String, arrays, classes).",
+   "marks": 4
+  },
+  {
+   "topic": 1,
+   "type": "short",
+   "q": "Explain why Java is platform independent.",
+   "model": "Source compiles to bytecode, which any computer with a JVM can run, so the same program runs on every operating system.",
+   "marks": 3
+  },
+  {
+   "topic": 1,
+   "type": "project",
+   "title": "Mini project: Unit converter",
+   "brief": "Write a program that stores a temperature in Celsius as a double, converts it to Fahrenheit (C*9/5+32) and to Kelvin (C+273.15), and prints both with labels. Use a final constant for 273.15.",
+   "solution": "final double KELVIN = 273.15;\ndouble c = 30.0;\ndouble f = c * 9 / 5 + 32;\nSystem.out.println(f + \" F\");\nSystem.out.println((c + KELVIN) + \" K\");"
+  }
+ ]
+}

@@ -1,0 +1,119 @@
+[
+ {
+  "order": 6,
+  "emoji": "⚙️",
+  "title": "6 · Methods (Deep Dive)",
+  "learn": "<h3>The story: recipe cards</h3><p>A recipe card describes a job but cooks nothing until someone <b>uses</b> it. A method is a named block of code that does one job and only runs when <b>called</b>. Benefits: reuse (write once, use everywhere), organisation, easier testing, and abstraction (the caller does not need to know how it works).</p><h3>Anatomy</h3><p><code>public static int add(int a, int b) { return a + b; }</code> Parts: modifier (public static), <b>return type</b> (int; void if nothing comes back), <b>name</b> (camelCase verb), <b>parameters</b> (int a, int b), <b>body</b>. <b>Parameters</b> are the placeholders in the declaration; <b>arguments</b> are the real values in the call: add(5, 3).</p><h3>Returning values</h3><p>void methods are called on their own: show(); Others hand back a value: <code>int r = add(5, 3);</code>. A method <b>stops the instant it hits return</b>, and every path through a non-void method must return something or it will not compile.</p><h3>Signature</h3><p>The signature is the <b>name plus parameter list</b> (types, number, order). It does <b>not</b> include the return type, modifiers or parameter names. Two methods in one class cannot share a signature.</p><h3>Overloading vs overriding</h3><p><b>Overloading</b>: same class, same name, <b>different parameters</b>; chosen at <b>compile time</b>; changing only the return type is illegal. <b>Overriding</b>: subclass replaces an inherited method with the <b>identical signature</b>; chosen at <b>run time</b>. Memory trick: overLOADing = different LOAD of parameters.</p><h3>Pass by value</h3><p>Java <b>always passes a copy</b>. A primitive passed in is never changed for the caller. For an object or array the <b>reference is copied</b>, so the method can modify the object's contents, but reassigning its parameter does not move the caller's variable.</p><h3>Scope</h3><p>A variable lives only inside the braces where it is declared. Parameters and local variables vanish when the method ends. Fields (declared in the class) live as long as the object.</p><h3>static vs instance</h3><p>static belongs to the class: <code>Math.sqrt(9)</code>, no object needed, and it cannot use instance fields or this. Instance methods belong to an object: <code>s1.getGpa()</code> needs new first.</p><h3>Recursion</h3><p>A method may call itself. It needs a <b>base case</b> that stops it, or you get StackOverflowError. Factorial: n! = n * (n-1)!, with 0! = 1.</p><h3>main</h3><p><code>public static void main(String[] args)</code>: public so the JVM can reach it, static so it runs without an object, void because it returns nothing, args holds command-line arguments.</p>",
+  "code": "public class Methods {\n    static int add(int a, int b)          { return a + b; }\n    static double add(double a, double b) { return a + b; }       // overload\n    static int add(int a, int b, int c)   { return a + b + c; }   // overload\n\n    static void increment(int n) { n = n + 1; }                   // copy only\n    static void fill(int[] arr)  { arr[0] = 99; }                 // changes the real array\n\n    static boolean isPalindrome(String s) {\n        String rev = \"\";\n        for (int i = s.length() - 1; i >= 0; i--) rev += s.charAt(i);\n        return s.equals(rev);\n    }\n    static int factorial(int n) {\n        if (n <= 1) return 1;            // base case\n        return n * factorial(n - 1);\n    }\n    public static void main(String[] args) {\n        int v = 5; increment(v);\n        System.out.println(v);                          // 5\n        int[] a = {1, 2}; fill(a);\n        System.out.println(a[0]);                       // 99\n        System.out.println(add(2, 3) + \" \" + add(2.5, 1.5)); // 5 4.0\n        System.out.println(isPalindrome(\"mum\"));        // true\n        System.out.println(factorial(5));               // 120\n    }\n}",
+  "quiz": [
+   {
+    "q": "Parameters vs arguments: which are the values passed in a call?",
+    "options": [
+     "Parameters",
+     "Arguments",
+     "Signatures",
+     "Modifiers"
+    ],
+    "answer": 1,
+    "why": "Parameters are in the declaration."
+   },
+   {
+    "q": "Is int add(int a,int b) with double add(int a,int b) legal overloading?",
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "answer": 1,
+    "why": "Return type alone cannot differ."
+   },
+   {
+    "q": "What is part of a method signature?",
+    "options": [
+     "Return type",
+     "Name and parameter types",
+     "Modifier",
+     "Parameter names"
+    ],
+    "answer": 1,
+    "why": "Name plus parameter list."
+   },
+   {
+    "q": "int v=5; increment(v) adds 1 to its parameter. v is?",
+    "options": [
+     "5",
+     "6"
+    ],
+    "answer": 0,
+    "why": "A copy was passed."
+   },
+   {
+    "q": "A method receives an int[] and sets arr[0]=99. Caller's array?",
+    "options": [
+     "Unchanged",
+     "arr[0] is 99",
+     "Error",
+     "Null"
+    ],
+    "answer": 1,
+    "why": "The reference to the same array was copied."
+   },
+   {
+    "q": "Overloading is resolved at?",
+    "options": [
+     "Compile time",
+     "Run time",
+     "Never",
+     "Load time"
+    ],
+    "answer": 0,
+    "why": "Overriding is run time."
+   },
+   {
+    "q": "What does a base case do in recursion?",
+    "options": [
+     "Starts it",
+     "Stops it",
+     "Speeds it up",
+     "Nothing"
+    ],
+    "answer": 1,
+    "why": "Without it: StackOverflowError."
+   },
+   {
+    "q": "Can a static method use an instance field directly?",
+    "options": [
+     "Yes",
+     "No"
+    ],
+    "answer": 1,
+    "why": "No object exists."
+   },
+   {
+    "q": "Why is main static?",
+    "options": [
+     "Convention only",
+     "Runs without creating an object",
+     "It is private",
+     "It returns int"
+    ],
+    "answer": 1,
+    "why": "The JVM calls it before any object exists."
+   },
+   {
+    "q": "A non-void method with a path that never returns causes?",
+    "options": [
+     "Runtime warning",
+     "Compile error",
+     "Returns 0",
+     "Nothing"
+    ],
+    "answer": 1,
+    "why": "All paths must return."
+   }
+  ],
+  "lab": {
+   "task": "Write: (1) max3(int a,int b,int c) returning the largest, (2) countVowels(String s) returning how many vowels, (3) a recursive power(int base,int exp). Call all three from main.",
+   "solution": "static int max3(int a, int b, int c) {\n  int m = a;\n  if (b > m) m = b;\n  if (c > m) m = c;\n  return m;\n}\nstatic int countVowels(String s) {\n  int n = 0;\n  for (char ch : s.toLowerCase().toCharArray())\n    if (\"aeiou\".indexOf(ch) >= 0) n++;\n  return n;\n}\nstatic int power(int base, int exp) {\n  if (exp == 0) return 1;\n  return base * power(base, exp - 1);\n}"
+  }
+ }
+]

@@ -1,0 +1,230 @@
+{
+ "title": "COMP 311 Mock Exam 2 (follows your lecturer's hints)",
+ "minutes": 120,
+ "sections": [
+  {
+   "name": "Section A: Multiple choice (15 marks)",
+   "type": "mc",
+   "questions": [
+    {
+     "q": "Which class do you use to split \"a b c\" into pieces by spaces?",
+     "options": [
+      "Scanner",
+      "StringTokenizer",
+      "Splitter",
+      "Math"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "ArrayList<Integer> list = new ArrayList<>(); list.add(5); This uses which feature?",
+     "options": [
+      "Autoboxing",
+      "Casting",
+      "Overriding",
+      "Recursion"
+     ],
+     "answer": 0,
+     "marks": 1
+    },
+    {
+     "q": "Integer y = 10; y is a ______ variable.",
+     "options": [
+      "primitive",
+      "reference",
+      "static",
+      "constant"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "To get the number of elements in an ArrayList you call:",
+     "options": [
+      "length",
+      "length()",
+      "size()",
+      "count()"
+     ],
+     "answer": 2,
+     "marks": 1
+    },
+    {
+     "q": "To get the number of elements in an array you use:",
+     "options": [
+      "size()",
+      "length",
+      "length()",
+      "count"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "Which keyword makes a class inherit from another?",
+     "options": [
+      "implements",
+      "extends",
+      "inherits",
+      "super"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "Which statement about constructors is TRUE?",
+     "options": [
+      "They have a void return type",
+      "They are inherited by subclasses",
+      "They have the same name as the class",
+      "They must be static"
+     ],
+     "answer": 2,
+     "marks": 1
+    },
+    {
+     "q": "A GUI window class usually ______.",
+     "options": [
+      "implements JFrame",
+      "extends JFrame",
+      "imports JFrame only",
+      "overrides JFrame"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "Which method runs a SELECT in JDBC?",
+     "options": [
+      "executeUpdate()",
+      "executeQuery()",
+      "executeRead()",
+      "run()"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "Which block always runs, whether or not an exception occurs?",
+     "options": [
+      "try",
+      "catch",
+      "finally",
+      "throws"
+     ],
+     "answer": 2,
+     "marks": 1
+    },
+    {
+     "q": "Math.round(7.5) returns:",
+     "options": [
+      "7",
+      "8",
+      "7.5",
+      "Error"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "Which loop is guaranteed to run at least once?",
+     "options": [
+      "while",
+      "for",
+      "do-while",
+      "for-each"
+     ],
+     "answer": 2,
+     "marks": 1
+    },
+    {
+     "q": "Which access modifier allows access only within the same package (no keyword)?",
+     "options": [
+      "private",
+      "default",
+      "protected",
+      "public"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "Animal a = new Dog(); a.sound() runs which version (both override)?",
+     "options": [
+      "Animal's",
+      "Dog's",
+      "Both",
+      "Neither"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "String s1 = new String(\"hi\"), s2 = new String(\"hi\"); s1 == s2 gives:",
+     "options": [
+      "true",
+      "false",
+      "Error",
+      "null"
+     ],
+     "answer": 1,
+     "marks": 1
+    }
+   ]
+  },
+  {
+   "name": "Section B: Short answer (25 marks)",
+   "type": "written",
+   "questions": [
+    {
+     "q": "Outline two differences between an array and an ArrayList.",
+     "model": "Array: fixed size, primitives or objects, length field. ArrayList: dynamic size, objects only (wrappers like Integer), size() method; you specify the element type in angle brackets.",
+     "marks": 4
+    },
+    {
+     "q": "Explain autoboxing with an example.",
+     "model": "Automatic conversion of a primitive to its wrapper object: Integer y = 10; or list.add(5) on an ArrayList<Integer>. Unboxing is the reverse: int z = y;",
+     "marks": 3
+    },
+    {
+     "q": "Using StringTokenizer, count the words in \"Java is fun to learn\" and print each on its own line.",
+     "model": "StringTokenizer st = new StringTokenizer(\"Java is fun to learn\");\nSystem.out.println(st.countTokens());   // 5\nwhile (st.hasMoreTokens()) System.out.println(st.nextToken());",
+     "marks": 5
+    },
+    {
+     "q": "Explain throw vs throws, and checked vs unchecked exceptions, with one example of each exception type.",
+     "model": "throw triggers an exception in a body; throws declares that a method may pass a checked exception on. Checked (IOException) are verified at compile time and must be handled or declared; unchecked (ArithmeticException, a RuntimeException) occur at run time and handling is optional.",
+     "marks": 5
+    },
+    {
+     "q": "Write a method that returns the largest value in an int array.",
+     "model": "static int max(int[] a) {\n  int m = a[0];\n  for (int x : a) if (x > m) m = x;\n  return m;\n}",
+     "marks": 4
+    },
+    {
+     "q": "Write a method safeDivide(int a, int b) that returns a / b but prints \"Cannot divide by zero\" and returns 0 if b is 0, using exception handling.",
+     "model": "static int safeDivide(int a, int b) {\n  try { return a / b; }\n  catch (ArithmeticException e) { System.out.println(\"Cannot divide by zero\"); return 0; }\n}",
+     "marks": 4
+    }
+   ]
+  },
+  {
+   "name": "Section C: Choose ONE (30 marks)",
+   "note": "Answer C1 or C2",
+   "type": "written",
+   "questions": [
+    {
+     "q": "C1: Create class Account (private owner, balance; constructor; deposit; withdraw refusing overdraft; getBalance). Create SavingsAccount extending Account with an interestRate, using super in its constructor and overriding a method addInterest() defined in Account (which does nothing). In main, store one Account and one SavingsAccount in an Account array, call addInterest() on each in a loop and explain which version runs.",
+     "model": "class Account {\n  private String owner; protected double balance;\n  Account(String o, double b) { owner = o; balance = b; }\n  void deposit(double a) { if (a > 0) balance += a; }\n  boolean withdraw(double a) { if (a > 0 && a <= balance) { balance -= a; return true; } return false; }\n  double getBalance() { return balance; }\n  void addInterest() { }\n}\nclass SavingsAccount extends Account {\n  private double rate;\n  SavingsAccount(String o, double b, double r) { super(o, b); rate = r; }\n  @Override void addInterest() { balance += balance * rate; }\n}\nAccount[] accs = { new Account(\"A\", 100), new SavingsAccount(\"B\", 100, 0.1) };\nfor (Account a : accs) { a.addInterest(); System.out.println(a.getBalance()); }  // 100.0 then 110.0\n// the real object decides which addInterest runs (runtime polymorphism)",
+     "marks": 30
+    },
+    {
+     "q": "C2: Create a Swing notebook window: a class Notebook that extends JFrame with a JTextField for a note, a Save button and a JTextArea showing saved notes (use BorderLayout). When Save is clicked, insert the note into a notes table using a PreparedStatement (notes(id AUTO_INCREMENT, text)), then append it to the text area. Handle SQLException.",
+     "model": "public class Notebook extends JFrame {\n  JTextField field = new JTextField(20);\n  JTextArea area = new JTextArea(8, 20);\n  Notebook() {\n    super(\"Notebook\");\n    JPanel top = new JPanel(); JButton save = new JButton(\"Save\");\n    top.add(field); top.add(save);\n    add(top, BorderLayout.NORTH); add(new JScrollPane(area), BorderLayout.CENTER);\n    save.addActionListener(e -> {\n      String sql = \"INSERT INTO notes (text) VALUES (?)\";\n      try (Connection c = DriverManager.getConnection(url, user, pass);\n           PreparedStatement ps = c.prepareStatement(sql)) {\n        ps.setString(1, field.getText()); ps.executeUpdate();\n        area.append(field.getText() + \"\\n\"); field.setText(\"\");\n      } catch (SQLException ex) { JOptionPane.showMessageDialog(this, ex.getMessage()); }\n    });\n    setSize(350, 300); setDefaultCloseOperation(EXIT_ON_CLOSE); setVisible(true);\n  }\n  public static void main(String[] a) { new Notebook(); }\n}",
+     "marks": 30
+    }
+   ]
+  }
+ ]
+}

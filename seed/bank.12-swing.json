@@ -1,0 +1,103 @@
+{
+ "bank": [
+  {
+   "topic": 12,
+   "type": "mc",
+   "q": "Which method makes a window appear?",
+   "options": [
+    "show()",
+    "setVisible(true)",
+    "open()",
+    "start()"
+   ],
+   "answer": 1,
+   "why": "setVisible(true)."
+  },
+  {
+   "topic": 12,
+   "type": "mc",
+   "q": "A JPanel's default layout?",
+   "options": [
+    "FlowLayout",
+    "BorderLayout",
+    "GridLayout",
+    "CardLayout"
+   ],
+   "answer": 0,
+   "why": "FlowLayout."
+  },
+  {
+   "topic": 12,
+   "type": "mc",
+   "q": "Which reads text from a JTextField?",
+   "options": [
+    "getText()",
+    "read()",
+    "text()",
+    "value()"
+   ],
+   "answer": 0,
+   "why": "getText()."
+  },
+  {
+   "topic": 12,
+   "type": "mc",
+   "q": "Which component lets the user pick only one of a group?",
+   "options": [
+    "JCheckBox",
+    "JRadioButton",
+    "JLabel",
+    "JButton"
+   ],
+   "answer": 1,
+   "why": "With a ButtonGroup."
+  },
+  {
+   "topic": 12,
+   "type": "mc",
+   "q": "Which layout has NORTH, SOUTH, EAST, WEST, CENTER?",
+   "options": [
+    "FlowLayout",
+    "GridLayout",
+    "BorderLayout",
+    "CardLayout"
+   ],
+   "answer": 2,
+   "why": "BorderLayout."
+  },
+  {
+   "topic": 12,
+   "type": "mc",
+   "q": "Clicking a button runs code if you add a?",
+   "options": [
+    "ActionListener",
+    "Layout",
+    "Panel",
+    "Frame"
+   ],
+   "answer": 0,
+   "why": "addActionListener."
+  },
+  {
+   "topic": 12,
+   "type": "short",
+   "q": "Explain event-driven programming in Swing.",
+   "model": "The program waits and code runs only when the user triggers an event (a click or key press) through a listener attached to a component.",
+   "marks": 3
+  },
+  {
+   "topic": 12,
+   "type": "short",
+   "q": "Differentiate FlowLayout and GridLayout.",
+   "model": "FlowLayout places components in a row left to right, wrapping; GridLayout divides the container into equal rows and columns.",
+   "marks": 3
+  },
+  {
+   "topic": 12,
+   "type": "project",
+   "title": "Mini project: Tip calculator",
+   "brief": "Build a window with a JTextField for the bill, a JTextField for tip percent, a Calculate button and a JLabel for the result. Show a message dialog if either box is not a number.",
+   "solution": "JFrame f = new JFrame(\"Tip\");\nJTextField bill = new JTextField(8), pct = new JTextField(8); JLabel out = new JLabel(\"Total: \");\nJButton go = new JButton(\"Calculate\");\ngo.addActionListener(e -> { try { double b = Double.parseDouble(bill.getText()), p = Double.parseDouble(pct.getText()); out.setText(\"Total: \" + (b + b * p / 100)); } catch (NumberFormatException ex) { JOptionPane.showMessageDialog(f, \"Numbers only\"); } });\nJPanel p = new JPanel(new GridLayout(4, 2)); p.add(new JLabel(\"Bill:\")); p.add(bill); p.add(new JLabel(\"Tip %:\")); p.add(pct); p.add(go); p.add(out);\nf.add(p); f.setSize(260, 180); f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); f.setVisible(true);"
+  }
+ ]
+}

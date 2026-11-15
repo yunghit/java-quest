@@ -1,0 +1,125 @@
+[
+ {
+  "order": 4,
+  "emoji": "📦",
+  "title": "4 · Arrays & ArrayList (Deep Dive)",
+  "learn": "<h3>The story: a row of lockers</h3><p>Hallway lockers are numbered from 0, all the same size, and the row cannot grow. That is an <b>array</b>: a fixed-size collection of the <b>same type</b>, indexed from 0 to length-1. It is an <b>object</b> (reference type) even when it holds primitives.</p><h3>Creating arrays</h3><p><code>int[] marks = new int[5];</code> makes 5 slots filled with defaults (0 for numbers, false for boolean, null for objects). <code>int[] marks = {90, 45, 77};</code> fills it directly. <code>marks.length</code> is a <b>field</b>, no brackets. Out of range access throws <b>ArrayIndexOutOfBoundsException</b>.</p><h3>Everyday array code</h3><p>Loop with a normal for when you need the index, for-each when you only need values. <code>Arrays.sort(a)</code> sorts in place and <code>Arrays.toString(a)</code> prints it (import java.util.Arrays). Copy with <code>Arrays.copyOf</code>; writing b = a copies only the <b>reference</b>, so both names share one array.</p><h3>Array pros and cons</h3><p>Pros: very fast index access, memory efficient, simple. Cons: <b>fixed size</b>, only <b>one type</b>, inserting or deleting in the middle means shifting elements by hand.</p><h3>2D arrays</h3><p>An array of arrays: <code>int[][] g = {{1,2,3},{4,5,6}};</code> g[1][2] is 6 (row first, then column). g.length is the rows, g[0].length the columns. Process with nested loops.</p><h3>ArrayList: the stretchy locker row</h3><p>An <b>ArrayList</b> grows and shrinks automatically. <code>ArrayList<Integer> list = new ArrayList<>();</code> The type in angle brackets limits what it holds. Core methods: <b>add(x)</b>, <b>get(i)</b>, <b>set(i, x)</b>, <b>remove(i)</b>, <b>size()</b>, <b>contains(x)</b>, <b>isEmpty()</b>.</p><h3>Why Integer, not int?</h3><p>Collections hold <b>objects only</b>. Each primitive has a wrapper: int/Integer, double/Double, char/Character, boolean/Boolean, long/Long. <b>Autoboxing</b> converts int to Integer automatically; <b>unboxing</b> converts back. Trap: on ArrayList<Integer>, remove(1) removes the item at <b>index</b> 1, not the value 1.</p><h3>Array vs ArrayList</h3><p>Array: fixed size, primitives or objects, <code>length</code>, <code>a[i]</code>. ArrayList: dynamic, objects only, <code>size()</code>, <code>get(i)</code>, needs import java.util.ArrayList. Exam tables love this.</p>",
+  "code": "import java.util.*;\npublic class Demo {\n    public static void main(String[] args) {\n        int[] marks = {90, 45, 77};\n        System.out.println(marks.length);          // 3\n        int[] alias = marks;                       // same array!\n        alias[0] = 10;\n        System.out.println(marks[0]);              // 10\n        Arrays.sort(marks);\n        System.out.println(Arrays.toString(marks)); // [10, 45, 77]\n\n        int[][] g = {{1, 2, 3}, {4, 5, 6}};\n        for (int r = 0; r < g.length; r++) {\n            for (int c = 0; c < g[r].length; c++) System.out.print(g[r][c] + \" \");\n            System.out.println();\n        }\n\n        ArrayList<Integer> list = new ArrayList<>();\n        list.add(5); list.add(8); list.add(1);\n        list.remove(0);                            // removes INDEX 0 -> [8, 1]\n        System.out.println(list.get(0) + \" \" + list.size()); // 8 2\n        for (int n : list) System.out.println(n);\n    }\n}",
+  "quiz": [
+   {
+    "q": "Valid indexes for int[5]?",
+    "options": [
+     "1 to 5",
+     "0 to 4",
+     "0 to 5",
+     "1 to 4"
+    ],
+    "answer": 1,
+    "why": "Index starts at 0."
+   },
+   {
+    "q": "Reading a[a.length] throws?",
+    "options": [
+     "NullPointerException",
+     "ArrayIndexOutOfBoundsException",
+     "ArithmeticException",
+     "Nothing"
+    ],
+    "answer": 1,
+    "why": "Last valid index is length-1."
+   },
+   {
+    "q": "Default value of each slot in new int[3]?",
+    "options": [
+     "null",
+     "0",
+     "1",
+     "undefined"
+    ],
+    "answer": 1,
+    "why": "Numbers default to 0."
+   },
+   {
+    "q": "b = a (both int[]). Then b[0]=9. What is a[0]?",
+    "options": [
+     "Unchanged",
+     "9",
+     "0",
+     "Error"
+    ],
+    "answer": 1,
+    "why": "Only the reference was copied."
+   },
+   {
+    "q": "ArrayList can store?",
+    "options": [
+     "Primitives only",
+     "Objects only",
+     "Anything",
+     "Strings only"
+    ],
+    "answer": 1,
+    "why": "Use wrappers like Integer."
+   },
+   {
+    "q": "Which is a field, not a method?",
+    "options": [
+     "list.size()",
+     "arr.length",
+     "list.get(0)",
+     "list.add(1)"
+    ],
+    "answer": 1,
+    "why": "length has no brackets."
+   },
+   {
+    "q": "Autoboxing is?",
+    "options": [
+     "Integer to int",
+     "int to Integer automatically",
+     "Array to list",
+     "Cast to long"
+    ],
+    "answer": 1,
+    "why": "Unboxing is the reverse."
+   },
+   {
+    "q": "list [5,8,1], list.remove(0) leaves?",
+    "options": [
+     "[8, 1]",
+     "[5, 1]",
+     "[5, 8]",
+     "[1]"
+    ],
+    "answer": 0,
+    "why": "remove(int) uses the index."
+   },
+   {
+    "q": "In g = {{1,2,3},{4,5,6}}, g[1][2] is?",
+    "options": [
+     "2",
+     "3",
+     "6",
+     "5"
+    ],
+    "answer": 2,
+    "why": "Row 1, column 2."
+   },
+   {
+    "q": "Which is a disadvantage of arrays?",
+    "options": [
+     "Fast access",
+     "Fixed size",
+     "Simple",
+     "Memory efficient"
+    ],
+    "answer": 1,
+    "why": "They cannot grow."
+   }
+  ],
+  "lab": {
+   "task": "Create an int array of 6 marks. Print the average, the highest mark and how many marks are above the average. Then store the same marks in an ArrayList<Integer>, remove every mark below 50 and print what remains.",
+   "solution": "int[] m = {90, 45, 77, 30, 66, 58};\nint sum = 0, max = m[0];\nfor (int x : m) { sum += x; if (x > max) max = x; }\ndouble avg = (double) sum / m.length;\nint above = 0;\nfor (int x : m) if (x > avg) above++;\nSystem.out.println(avg + \" \" + max + \" \" + above);\nArrayList<Integer> list = new ArrayList<>();\nfor (int x : m) list.add(x);\nfor (int i = list.size() - 1; i >= 0; i--)\n  if (list.get(i) < 50) list.remove(i);   // loop backwards when removing\nSystem.out.println(list);"
+  }
+ }
+]

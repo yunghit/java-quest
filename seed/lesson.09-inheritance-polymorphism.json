@@ -1,0 +1,123 @@
+[
+ {
+  "order": 9,
+  "emoji": "🧬",
+  "title": "9 · Inheritance & Polymorphism (Deep Dive)",
+  "learn": "<h3>The story: a family of animals</h3><p>Dogs, cats and birds all have a name and all eat. Copy-pasting that into three classes is like photocopying the same page three times: change one, forget the others, and chaos follows. <b>Inheritance</b> lets you write the shared stuff <b>once</b> in a parent class and let children borrow it. The parent is the <b>superclass</b>, the child is the <b>subclass</b>, and the keyword is <b>extends</b>.</p><h3>The is-a test</h3><p>Only inherit when you can say \"X <i>is a</i> Y\": a Dog is an Animal, a Car is a Vehicle. A Dog is not an Engine, so use a field instead. Java allows <b>one parent only</b>.</p><h3>What the child gets</h3><p>Public and protected fields and methods come along. <b>Private</b> members exist inside the object but the child cannot touch them by name (use getters). <b>Constructors are never inherited</b>. Static members are reachable through the subclass.</p><h3>Access levels, the full picture</h3><p>private: same class. no modifier: same package. protected: same package plus subclasses anywhere. public: everyone.</p><h3>Constructors and super</h3><p>A child object is built <b>parent part first</b>. So every child constructor starts by calling a parent constructor. Write <code>super(args)</code> as the <b>very first line</b>, or Java inserts <code>super()</code> for you. The classic exam trap: the parent has only a constructor that needs arguments, the child forgets super(...), and the code will not compile because Java hunts for an empty constructor that does not exist. In a chain A, B, C the constructors run A then B then C.</p><h3>Overriding</h3><p>A child can replace an inherited method. Same name, same parameters, compatible return type. Add <b>@Override</b> so the compiler catches typos. Inside it, <code>super.method()</code> runs the parent's version first, so you extend instead of replace. Every class secretly extends <b>Object</b>, which is where toString(), equals() and hashCode() come from. Override toString() so printing an object shows something useful instead of Dog@1b6d3586.</p><h3>Polymorphism: one command, many behaviours</h3><p>Shout \"make a sound!\" at a room of animals: the dog barks, the cat meows, the cow moos. Same command, each answers its own way. In Java a <b>parent reference can hold any child object</b>: <code>Animal a = new Dog();</code>. The variable's type (Animal) decides <i>which methods you may call</i>; the <b>real object</b> (Dog) decides <i>which version runs</i>. Not the other way round: <code>Dog d = new Animal();</code> fails because not every Animal is a Dog.</p><p>The payoff: one array of Shape holds circles and rectangles, one loop handles all of them, and adding a Triangle later changes <b>zero</b> existing code.</p><h3>instanceof and casting</h3><p>A parent reference only exposes parent methods. To use a child-only method, check with <code>instanceof</code> and cast: <code>if (a instanceof Dog) ((Dog) a).bark();</code>. A wrong cast throws ClassCastException.</p><h3>Two kinds of polymorphism</h3><p>Overloading (same class, different parameters) is decided at <b>compile time</b>. Overriding (child replaces parent) is decided at <b>run time</b>. Exam tables love this.</p><h3>Exam checklist for Section C</h3><p>Parent class with protected or private fields and a constructor. Children use extends and super(...). Each child overrides with @Override. main builds a parent-typed array, loops, and prints. One sentence explaining that the real object decides the method.</p>",
+  "code": "class Shape {\n    protected String name;\n    public Shape(String name) { this.name = name; }\n    public double area() { return 0; }\n    @Override public String toString() { return name + \" area=\" + area(); }\n}\nclass Circle extends Shape {\n    private double r;\n    public Circle(double r) { super(\"Circle\"); this.r = r; }\n    @Override public double area() { return Math.PI * r * r; }\n    public void roll() { System.out.println(\"rolling\"); }\n}\nclass Rectangle extends Shape {\n    private double w, h;\n    public Rectangle(double w, double h) { super(\"Rectangle\"); this.w = w; this.h = h; }\n    @Override public double area() { return w * h; }\n}\npublic class Main {\n    public static void main(String[] args) {\n        Shape[] shapes = { new Circle(5), new Rectangle(4, 6) };\n        for (Shape s : shapes) {\n            System.out.println(s);             // runtime polymorphism\n            if (s instanceof Circle) ((Circle) s).roll();\n        }\n    }\n}",
+  "quiz": [
+   {
+    "q": "Which keyword creates inheritance?",
+    "options": [
+     "implements",
+     "extends",
+     "super",
+     "inherits"
+    ],
+    "answer": 1,
+    "why": "class Dog extends Animal."
+   },
+   {
+    "q": "Can a class extend two classes?",
+    "options": [
+     "Yes",
+     "No, one parent only"
+    ],
+    "answer": 1,
+    "why": "Java has single class inheritance."
+   },
+   {
+    "q": "Animal has only Animal(String name). Cat extends Animal with Cat() { }. Result?",
+    "options": [
+     "Works",
+     "Compile error: no super(...) call",
+     "Runtime error",
+     "Name is null"
+    ],
+    "answer": 1,
+    "why": "Java inserts super() which does not exist."
+   },
+   {
+    "q": "Animal a = new Dog(); which makeSound() runs?",
+    "options": [
+     "Animal's",
+     "Dog's",
+     "Both",
+     "Neither"
+    ],
+    "answer": 1,
+    "why": "The real object decides."
+   },
+   {
+    "q": "Dog d = new Animal(); is?",
+    "options": [
+     "Legal",
+     "A compile error",
+     "A runtime error",
+     "Legal with a cast"
+    ],
+    "answer": 1,
+    "why": "Not every Animal is a Dog."
+   },
+   {
+    "q": "Overriding is decided at?",
+    "options": [
+     "Compile time",
+     "Run time",
+     "Link time",
+     "Never"
+    ],
+    "answer": 1,
+    "why": "Overloading is compile time."
+   },
+   {
+    "q": "What does super.eat() do inside Dog's eat()?",
+    "options": [
+     "Calls Animal's eat()",
+     "Calls Dog's eat() again",
+     "Deletes eat()",
+     "Nothing"
+    ],
+    "answer": 0,
+    "why": "It runs the parent version."
+   },
+   {
+    "q": "Which is NOT inherited?",
+    "options": [
+     "public methods",
+     "protected fields",
+     "constructors",
+     "public fields"
+    ],
+    "answer": 2,
+    "why": "Constructors are never inherited."
+   },
+   {
+    "q": "Why use instanceof before a cast?",
+    "options": [
+     "To avoid ClassCastException",
+     "For speed",
+     "It is required syntax",
+     "To rename the object"
+    ],
+    "answer": 0,
+    "why": "It checks the real type."
+   },
+   {
+    "q": "Which access modifier lets subclasses in other packages use a field?",
+    "options": [
+     "private",
+     "protected",
+     "(none)",
+     "static"
+    ],
+    "answer": 1,
+    "why": "protected = package + subclasses."
+   }
+  ],
+  "lab": {
+   "task": "Write Employee (name, baseSalary, constructor, pay() returning baseSalary) and Manager extends Employee (adds bonus, constructor using super, overrides pay() to add the bonus). In main store both in an Employee[] and print each pay.",
+   "solution": "class Employee {\n  protected String name; protected double base;\n  Employee(String n, double b) { name = n; base = b; }\n  double pay() { return base; }\n}\nclass Manager extends Employee {\n  private double bonus;\n  Manager(String n, double b, double bonus) { super(n, b); this.bonus = bonus; }\n  @Override double pay() { return super.pay() + bonus; }\n}\nEmployee[] e = { new Employee(\"Kabo\", 5000), new Manager(\"Neo\", 8000, 2000) };\nfor (Employee x : e) System.out.println(x.name + \" \" + x.pay());"
+  }
+ }
+]

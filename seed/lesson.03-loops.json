@@ -1,0 +1,125 @@
+[
+ {
+  "order": 3,
+  "emoji": "🔁",
+  "title": "3 · Loops (Deep Dive)",
+  "learn": "<h3>The story: the washing machine</h3><p>A washing machine repeats spin cycles until a condition says stop. Loops are the same idea: repeat code while a condition holds. Every loop has a <b>loop control variable</b> with three life stages: <b>initialised</b> before, <b>tested</b> in the condition, <b>updated</b> inside. Skip the update and the condition never becomes false: an <b>infinite loop</b>.</p><h3>Choosing the right loop</h3><p><b>while</b>: checks first, may run zero times; use when you do not know how many repeats. <b>do-while</b>: checks <b>after</b>, runs at least once (menus, “enter a valid age”), and ends with a semicolon. <b>for</b>: initialise; condition; update in one line, ideal when the count is known. <b>Enhanced for (for-each)</b>: visits every element of an array or list with no index, but you cannot change the array safely or know the position.</p><h3>Patterns you must be able to write</h3><p><b>Accumulator</b>: total += x. <b>Counter</b>: count++ when a condition holds. <b>Max/min</b>: start with the first element, replace when you find a bigger or smaller one. <b>Sentinel loop</b>: keep reading until the user types a stop value like -1. <b>Nested loops</b>: the inner loop runs completely for every step of the outer one, so 3 outer by 4 inner runs the body 12 times (stars triangles, multiplication tables, 2D arrays).</p><h3>break and continue</h3><p><b>break</b> exits the loop immediately. <b>continue</b> skips the rest of this round and moves to the next.</p><h3>Off-by-one errors</h3><p>The most common loop bug. i <= 5 runs 5 times from 1 but i <= length on an array runs one step too far and throws ArrayIndexOutOfBoundsException. Use i < arr.length.</p><h3>Tracing</h3><p>Exam questions give you code and ask the output. Draw a table with a column per variable and a row per iteration. Never trust your eyes.</p>",
+  "code": "int total = 0;\nfor (int i = 1; i <= 5; i++) total += i;          // accumulator -> 15\n\nint n = 12, count = 0;\nfor (int i = 1; i <= n; i++) if (n % i == 0) count++;   // counter -> 6 divisors\n\nint[] a = {4, 9, 2, 7};\nint max = a[0];\nfor (int x : a) if (x > max) max = x;             // max -> 9\n\nScanner sc = new Scanner(System.in);\nint age;\ndo {\n    System.out.print(\"Age (1-120): \");\n    age = sc.nextInt();\n} while (age < 1 || age > 120);                    // runs at least once\n\nfor (int r = 1; r <= 3; r++) {                     // nested: triangle\n    for (int c = 1; c <= r; c++) System.out.print(\"*\");\n    System.out.println();\n}",
+  "quiz": [
+   {
+    "q": "Which loop always runs at least once?",
+    "options": [
+     "while",
+     "for",
+     "do-while",
+     "for-each"
+    ],
+    "answer": 2,
+    "why": "It tests after the body."
+   },
+   {
+    "q": "What causes an infinite loop?",
+    "options": [
+     "No update of the control variable",
+     "Using braces",
+     "Using int",
+     "Using i++"
+    ],
+    "answer": 0,
+    "why": "The condition never turns false."
+   },
+   {
+    "q": "How many times does for(int i=0;i<5;i++) run?",
+    "options": [
+     "4",
+     "5",
+     "6",
+     "0"
+    ],
+    "answer": 1,
+    "why": "i = 0,1,2,3,4."
+   },
+   {
+    "q": "What does continue do?",
+    "options": [
+     "Exits the loop",
+     "Skips to the next iteration",
+     "Restarts the program",
+     "Does nothing"
+    ],
+    "answer": 1,
+    "why": "break exits."
+   },
+   {
+    "q": "A nested loop with outer 3 and inner 4 runs the inner body how many times?",
+    "options": [
+     "7",
+     "12",
+     "3",
+     "4"
+    ],
+    "answer": 1,
+    "why": "3 x 4."
+   },
+   {
+    "q": "Which loop suits visiting every element with no index?",
+    "options": [
+     "while",
+     "do-while",
+     "for-each",
+     "switch"
+    ],
+    "answer": 2,
+    "why": "Enhanced for."
+   },
+   {
+    "q": "Why is i <= arr.length a bug?",
+    "options": [
+     "It is slower",
+     "It reads one index past the end",
+     "It is a syntax error",
+     "It skips index 0"
+    ],
+    "answer": 1,
+    "why": "Causes ArrayIndexOutOfBoundsException."
+   },
+   {
+    "q": "Output of: int s=0; for(int i=1;i<=4;i++) s+=i; print s?",
+    "options": [
+     "4",
+     "10",
+     "24",
+     "6"
+    ],
+    "answer": 1,
+    "why": "1+2+3+4."
+   },
+   {
+    "q": "What follows the condition of do-while?",
+    "options": [
+     "Nothing",
+     "A semicolon",
+     "A colon",
+     "A brace"
+    ],
+    "answer": 1,
+    "why": "} while (cond);"
+   },
+   {
+    "q": "Which fits a menu that must show once before asking again?",
+    "options": [
+     "do-while",
+     "for",
+     "for-each",
+     "if"
+    ],
+    "answer": 0,
+    "why": "At least one run."
+   }
+  ],
+  "lab": {
+   "task": "Read numbers until the user enters -1. Print how many numbers were entered, their sum and their largest. Then print a right-angled triangle of # with 4 rows.",
+   "solution": "Scanner sc = new Scanner(System.in);\nint n = sc.nextInt(), count = 0, sum = 0, max = Integer.MIN_VALUE;\nwhile (n != -1) {\n  count++; sum += n;\n  if (n > max) max = n;\n  n = sc.nextInt();\n}\nSystem.out.println(count + \" \" + sum + \" \" + max);\nfor (int r = 1; r <= 4; r++) {\n  for (int c = 1; c <= r; c++) System.out.print(\"#\");\n  System.out.println();\n}"
+  }
+ }
+]

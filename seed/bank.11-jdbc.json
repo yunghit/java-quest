@@ -1,0 +1,103 @@
+{
+ "bank": [
+  {
+   "topic": 11,
+   "type": "mc",
+   "q": "Which interface holds query results?",
+   "options": [
+    "Connection",
+    "ResultSet",
+    "Statement",
+    "Driver"
+   ],
+   "answer": 1,
+   "why": "ResultSet."
+  },
+  {
+   "topic": 11,
+   "type": "mc",
+   "q": "ps.setInt(1, 5) fills?",
+   "options": [
+    "The first ?",
+    "The second ?",
+    "The table",
+    "The column name"
+   ],
+   "answer": 0,
+   "why": "Positions start at 1."
+  },
+  {
+   "topic": 11,
+   "type": "mc",
+   "q": "Which stops SQL injection?",
+   "options": [
+    "Statement with +",
+    "PreparedStatement",
+    "Longer passwords",
+    "executeQuery"
+   ],
+   "answer": 1,
+   "why": "Placeholders."
+  },
+  {
+   "topic": 11,
+   "type": "mc",
+   "q": "UPDATE without WHERE changes?",
+   "options": [
+    "One row",
+    "No rows",
+    "Every row",
+    "The table name"
+   ],
+   "answer": 2,
+   "why": "All rows."
+  },
+  {
+   "topic": 11,
+   "type": "mc",
+   "q": "Which URL is valid?",
+   "options": [
+    "jdbc:mysql://localhost:3306/school",
+    "mysql://school",
+    "http://localhost/school",
+    "jdbc:school"
+   ],
+   "answer": 0,
+   "why": "Protocol, host, port, database."
+  },
+  {
+   "topic": 11,
+   "type": "mc",
+   "q": "SQLException must be?",
+   "options": [
+    "Ignored",
+    "Handled or declared",
+    "Thrown manually",
+    "Static"
+   ],
+   "answer": 1,
+   "why": "Checked."
+  },
+  {
+   "topic": 11,
+   "type": "short",
+   "q": "Explain the steps to run a SELECT with JDBC.",
+   "model": "Open a Connection, create a PreparedStatement, set parameters, executeQuery, loop with rs.next() reading columns, close resources (try-with-resources).",
+   "marks": 5
+  },
+  {
+   "topic": 11,
+   "type": "short",
+   "q": "Why use PreparedStatement instead of Statement?",
+   "model": "It uses ? placeholders so user input is data not SQL (prevents injection) and it can be precompiled and reused faster.",
+   "marks": 3
+  },
+  {
+   "topic": 11,
+   "type": "project",
+   "title": "Mini project: Student DAO",
+   "brief": "Write StudentDAO with findById(int) returning the name or null, listAll() returning an ArrayList<String>, and updateGpa(int,double) returning boolean.",
+   "solution": "String findById(int id) {\n  String sql = \"SELECT name FROM students WHERE id = ?\";\n  try (Connection c = DriverManager.getConnection(url, user, pass); PreparedStatement ps = c.prepareStatement(sql)) {\n    ps.setInt(1, id); ResultSet rs = ps.executeQuery();\n    return rs.next() ? rs.getString(\"name\") : null;\n  } catch (SQLException e) { return null; }\n}"
+  }
+ ]
+}

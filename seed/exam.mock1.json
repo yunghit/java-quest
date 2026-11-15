@@ -1,0 +1,23 @@
+{"title":"COMP 311 Mock Exam 1","minutes":120,"sections":[
+{"name":"Section A: Multiple choice","type":"mc","questions":[
+{"q":"Which keyword makes Cat inherit from Animal?","options":["implements","extends","inherits","super"],"answer":1,"marks":1},
+{"q":"\"Java\".charAt(2) returns?","options":["'J'","'a'","'v'","'x'"],"answer":2,"marks":1},
+{"q":"Which loop always runs at least once?","options":["while","for","do-while","for-each"],"answer":2,"marks":1},
+{"q":"new int[4] stores what in each slot?","options":["null","0","1","nothing"],"answer":1,"marks":1},
+{"q":"Integer.parseInt(\"abc\") throws?","options":["ArithmeticException","NumberFormatException","NullPointerException","IOException"],"answer":1,"marks":1},
+{"q":"Which is NOT inherited?","options":["public methods","public fields","constructors","protected methods"],"answer":2,"marks":1},
+{"q":"Math.round(4.6) gives?","options":["4","4.6","5","6"],"answer":2,"marks":1},
+{"q":"Which PreparedStatement method reads data?","options":["executeUpdate()","executeQuery()","executeRead()","execute()"],"answer":1,"marks":1},
+{"q":"A JPanel's default layout?","options":["BorderLayout","GridLayout","CardLayout","FlowLayout"],"answer":3,"marks":1},
+{"q":"Animal a = new Dog(); a.makeSound() runs whose version (both override)?","options":["Animal's","Dog's","Both","Compile error"],"answer":1,"marks":1}]},
+{"name":"Section B: Short answer","type":"written","questions":[
+{"q":"Three differences between an array and an ArrayList.","model":"Array: fixed size, primitives or objects, length field, arr[i]. ArrayList: dynamic, objects only (wrappers), size() method, get(i).","marks":3},
+{"q":"Difference between throw and throws, one line each.","model":"throw triggers an exception: throw new IllegalArgumentException(\"x\"); throws declares in the signature: void read() throws IOException.","marks":4},
+{"q":"Write isEven(int n) returning true if n is even.","model":"public static boolean isEven(int n) { return n % 2 == 0; }","marks":3},
+{"q":"Write void average(String path) that prints the average of numbers in a file; handle exceptions.","model":"try (Scanner sc = new Scanner(new FileReader(path))) { int sum=0,n=0; while(sc.hasNextInt()){sum+=sc.nextInt();n++;} System.out.println(n==0?0:(double)sum/n); } catch (FileNotFoundException e) { System.out.println(\"Not found\"); }","marks":8},
+{"q":"Split \"red,green,blue\" with StringTokenizer and print each.","model":"StringTokenizer st = new StringTokenizer(\"red,green,blue\", \",\"); while (st.hasMoreTokens()) System.out.println(st.nextToken());","marks":4},
+{"q":"Explain encapsulation with a private field example.","model":"Hide data: private fields, public getters/setters that can validate. private double gpa; public void setGpa(double g){ if(g>=0&&g<=4) gpa=g; }","marks":4},
+{"q":"Two differences between Statement and PreparedStatement.","model":"PreparedStatement uses ? placeholders, prevents SQL injection, is precompiled and faster when reused; Statement sends a raw SQL string.","marks":4}]},
+{"name":"Section C: Choose ONE","note":"Answer C1 or C2","type":"written","questions":[
+{"q":"C1: Vehicle (brand, constructor, describe() returns \"Vehicle\"); Car and Bike override describe(); in main store both in a Vehicle[] and print brand + describe(). Explain why output differs.","model":"class Vehicle{ protected String brand; Vehicle(String b){brand=b;} String describe(){return \"Vehicle\";} } class Car extends Vehicle{ Car(String b){super(b);} @Override String describe(){return \"Car\";} } class Bike extends Vehicle{ Bike(String b){super(b);} @Override String describe(){return \"Bike\";} } Vehicle[] v={new Car(\"Toyota\"),new Bike(\"BMX\")}; for(Vehicle x:v) System.out.println(x.brand+\" \"+x.describe()); // the real object decides (runtime polymorphism)","marks":30},
+{"q":"C2: Swing window with JTextField, Search button and result JLabel; method using PreparedStatement to select a student's name by id; connect them, handle not found.","model":"JFrame f=new JFrame(\"Find Student\"); JTextField t=new JTextField(10); JButton b=new JButton(\"Search\"); JLabel r=new JLabel(\"\"); JPanel p=new JPanel(); p.add(t);p.add(b);p.add(r); f.add(p); b.addActionListener(e->{ String n=find(Integer.parseInt(t.getText())); r.setText(n==null?\"Not found\":n); }); // find(): SELECT name FROM students WHERE id=? with ps.setInt(1,id); rs.next()?rs.getString(\"name\"):null","marks":30}]}]}

@@ -1,0 +1,240 @@
+{
+ "title": "Past Test: COMP 311 / INFS 311 Test (50 marks)",
+ "minutes": 90,
+ "sections": [
+  {
+   "name": "Section A: Multiple choice (15 marks)",
+   "type": "mc",
+   "questions": [
+    {
+     "q": "Java compiler javac translates Java source code ______.",
+     "options": [
+      "Assembler language",
+      "Byte code",
+      "Bit code",
+      "Machine"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "When a method terminates, the values of its local variables are ______.",
+     "options": [
+      "saved",
+      "copied",
+      "restored",
+      "lost"
+     ],
+     "answer": 3,
+     "marks": 1
+    },
+    {
+     "q": "Which command compiles the Java source code file Welcome.java?",
+     "options": [
+      "cd Welcome.java",
+      "javac Welcome.java",
+      "java Welcome.java",
+      "compile Welcome.java"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "Which of the following can be an argument to a method?",
+     "options": [
+      "Constants",
+      "Variables",
+      "Expressions",
+      "All of the above"
+     ],
+     "answer": 3,
+     "marks": 1
+    },
+    {
+     "q": "Which of the following is not a Java primitive type?",
+     "options": [
+      "char",
+      "byte",
+      "real",
+      "double"
+     ],
+     "answer": 2,
+     "marks": 1
+    },
+    {
+     "q": "Declaring instance variables ______ is known as data hiding or information hiding.",
+     "options": [
+      "secure",
+      "private",
+      "static",
+      "masked"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "int temp = 200; if(temp>90) print \"too hot\"; if(temp<70) print \"too cold\"; if(temp==80) print \"just right\". What is output?",
+     "options": [
+      "This porridge is too hot.",
+      "This porridge is too cold.",
+      "This porridge is just right!",
+      "None of the above"
+     ],
+     "answer": 0,
+     "marks": 1
+    },
+    {
+     "q": "Reference-type variables (called references) store ______ in memory.",
+     "options": [
+      "the value of an object",
+      "a copy of an object",
+      "the location of an object",
+      "the size of an object"
+     ],
+     "answer": 2,
+     "marks": 1
+    },
+    {
+     "q": "Local variables must be ______.",
+     "options": [
+      "initialized when they are declared",
+      "initialized before their values are used in an expression",
+      "declared and initialized in two steps",
+      "declared at the top of the method's body"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "In OOP, the process by which one object acquires the properties of another object is called ______.",
+     "options": [
+      "Encapsulation",
+      "Polymorphism",
+      "Overloading",
+      "Inheritance"
+     ],
+     "answer": 3,
+     "marks": 1
+    },
+    {
+     "q": "Java requires a ______ call for every object that is created.",
+     "options": [
+      "Constructor",
+      "Destructor",
+      "parameterless",
+      "parameterized"
+     ],
+     "answer": 0,
+     "marks": 1
+    },
+    {
+     "q": "int result=0, x=1; while (x <= 10) { if (x % 2 == 0) result += x; ++x; } System.out.println(result); Output?",
+     "options": [
+      "55",
+      "30",
+      "25",
+      "35"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "int counter = 1; while (counter > 20) { counter = counter - 1; } How many times is the body executed?",
+     "options": [
+      "19",
+      "20",
+      "21",
+      "0"
+     ],
+     "answer": 3,
+     "marks": 1
+    },
+    {
+     "q": "Overriding a method differs from overloading a method because:",
+     "options": [
+      "Overloaded methods have the same signature",
+      "Overridden methods have the same signature",
+      "Both of the above",
+      "Neither of the above"
+     ],
+     "answer": 1,
+     "marks": 1
+    },
+    {
+     "q": "int x = 9; y = 5.3; result = calculateValue(x, y); Which statement is FALSE?",
+     "options": [
+      "A method is called with its name and parentheses",
+      "x and y are parameters",
+      "Copies of x and y are passed to the method",
+      "x and y are arguments"
+     ],
+     "answer": 1,
+     "marks": 1
+    }
+   ]
+  },
+  {
+   "name": "Section B (20 marks)",
+   "type": "written",
+   "questions": [
+    {
+     "q": "Define Class in Java.",
+     "model": "A class is a template (blueprint) used to create objects and define the data type. It is a building block of Java's object-oriented systems.",
+     "marks": 2
+    },
+    {
+     "q": "What do JDK, JRE and JVM stand for?",
+     "model": "JVM = Java Virtual Machine; JRE = Java Runtime Environment; JDK = Java Development Kit.",
+     "marks": 3
+    },
+    {
+     "q": "What is the difference between a syntax error and a logical error?",
+     "model": "Syntax errors break the grammar of the language so the compiler cannot compile the file. Logic errors compile and run but the program does not do what the programmer expects.",
+     "marks": 2
+    },
+    {
+     "q": "Can you override a private or static method in Java? Explain.",
+     "model": "No. A private method is not accessible in the subclass, so it cannot be overridden (a same-named method there is a new method). A static method belongs to the class; a same-signature static method in a subclass HIDES the parent's method (method hiding) rather than overriding it.",
+     "marks": 3
+    },
+    {
+     "q": "What are the various access specifiers for Java classes? Give 4 examples.",
+     "model": "public: accessible from anywhere. protected: same class, same package and subclasses. default (no modifier): same package only. private: same class only.",
+     "marks": 5
+    },
+    {
+     "q": "Write a for loop that prints all the multiples of 3 from 3 to 36 (3 and 36 included).",
+     "model": "for (int n = 3; n <= 36; n = n + 3) {\n  System.out.println(n);\n}\n// or: for (n=3; n<=36; n++) if (n % 3 == 0) print n",
+     "marks": 3
+    },
+    {
+     "q": "What is the difference between break and continue statements?",
+     "model": "break exits the loop immediately. continue skips the rest of the current iteration and moves on to the next iteration.",
+     "marks": 2
+    }
+   ]
+  },
+  {
+   "name": "Section C (15 marks)",
+   "note": "Answer ONE question. Q23 appendix was not in the files, so the Meeting class is reconstructed.",
+   "type": "written",
+   "questions": [
+    {
+     "q": "Q23: BIUST contracted a freelancer to write a Java meeting manager. Every meeting must have a title, date and time but the Meeting class (Appendix A, not included in your files) has no time. (a) Modify Meeting: add a time with accessors and mutators and amend the non-default constructor. (b) Define an ArrayList of Meeting objects and add all the given objects (updated for time). (c) Use the enhanced for loop to find every meeting on 01-03-2018 and change its time to 1800hrs. (d) Use the enhanced for loop to print the details of all meetings.",
+     "model": "class Meeting {\n  private String title, date;\n  private int time;                       // new field\n  public Meeting() { }\n  public Meeting(String title, String date, int time) { this.title=title; this.date=date; this.time=time; }\n  public int getTime() { return time; }\n  public void setTime(int time) { this.time = time; }\n  public String getDate() { return date; }\n  public String toString() { return title + \" \" + date + \" \" + time; }\n}\nArrayList<Meeting> list = new ArrayList<>();\nlist.add(new Meeting(\"Budget\", \"01-03-2018\", 900));\nfor (Meeting m : list) if (m.getDate().equals(\"01-03-2018\")) m.setTime(1800);\nfor (Meeting m : list) System.out.println(m);",
+     "marks": 15
+    },
+    {
+     "q": "Q24: Write a Java program to test if an array contains a specific value. If found, print the value and the array index (e.g. \"Value 5 is at index 10\"), otherwise print \"Value not found\".",
+     "model": "int[] a = {3, 8, 5, 1};\nint target = 5; boolean found = false;\nfor (int i = 0; i < a.length; i++) {\n  if (a[i] == target) { System.out.println(\"Value \" + target + \" is at index \" + i); found = true; break; }\n}\nif (!found) System.out.println(\"Value not found\");",
+     "marks": 15
+    },
+    {
+     "q": "Q25: Create a class Employee with first name (String), last name (String) and monthly salary (double) as instance variables. Provide a constructor initialising all three, and a set and get method for each. If the monthly salary is not positive, set it to 0.0.",
+     "model": "public class Employee {\n  private String firstName, lastName;\n  private double monthlySalary;\n  public Employee(String f, String l, double s) { firstName=f; lastName=l; setMonthlySalary(s); }\n  public String getFirstName() { return firstName; }\n  public void setFirstName(String f) { firstName = f; }\n  public String getLastName() { return lastName; }\n  public void setLastName(String l) { lastName = l; }\n  public double getMonthlySalary() { return monthlySalary; }\n  public void setMonthlySalary(double s) { monthlySalary = (s > 0) ? s : 0.0; }\n}",
+     "marks": 15
+    }
+   ]
+  }
+ ]
+}

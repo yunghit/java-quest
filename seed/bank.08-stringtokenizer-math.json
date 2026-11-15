@@ -1,0 +1,103 @@
+{
+ "bank": [
+  {
+   "topic": 8,
+   "type": "mc",
+   "q": "new StringTokenizer(\"a b c\").countTokens() is?",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "answer": 2,
+   "why": "Three tokens."
+  },
+  {
+   "topic": 8,
+   "type": "mc",
+   "q": "Math.ceil(4.1) is?",
+   "options": [
+    "4.0",
+    "5.0",
+    "4",
+    "5"
+   ],
+   "answer": 1,
+   "why": "Rounds up."
+  },
+  {
+   "topic": 8,
+   "type": "mc",
+   "q": "Math.max(3, 9) is?",
+   "options": [
+    "3",
+    "9",
+    "12",
+    "6"
+   ],
+   "answer": 1,
+   "why": "The larger."
+  },
+  {
+   "topic": 8,
+   "type": "mc",
+   "q": "Which gives a random int 1 to 6?",
+   "options": [
+    "(int)(Math.random()*6)+1",
+    "Math.random()*6",
+    "(int)Math.random()*6",
+    "Math.random(6)"
+   ],
+   "answer": 0,
+   "why": "Multiply, cast, shift."
+  },
+  {
+   "topic": 8,
+   "type": "mc",
+   "q": "Math.abs(-7) is?",
+   "options": [
+    "-7",
+    "7",
+    "0",
+    "error"
+   ],
+   "answer": 1,
+   "why": "Absolute value."
+  },
+  {
+   "topic": 8,
+   "type": "mc",
+   "q": "nextToken() with none left throws?",
+   "options": [
+    "NoSuchElementException",
+    "IOException",
+    "ArithmeticException",
+    "nothing"
+   ],
+   "answer": 0,
+   "why": "Guard with hasMoreTokens()."
+  },
+  {
+   "topic": 8,
+   "type": "short",
+   "q": "Explain what a token and a delimiter are.",
+   "model": "A token is a piece of the string; a delimiter is a character that separates tokens (space by default).",
+   "marks": 2
+  },
+  {
+   "topic": 8,
+   "type": "short",
+   "q": "Why is Math.pow(2,3) not assignable to an int directly?",
+   "model": "It returns a double, so you must cast: (int) Math.pow(2,3).",
+   "marks": 2
+  },
+  {
+   "topic": 8,
+   "type": "project",
+   "title": "Mini project: CSV total",
+   "brief": "Given the line 'milk,12.50,bread,8.00,eggs,30.25' use StringTokenizer to split on commas and add up every price (the numbers) printing the total to 2 decimals.",
+   "solution": "StringTokenizer st = new StringTokenizer(\"milk,12.50,bread,8.00,eggs,30.25\", \",\");\ndouble total = 0;\nwhile (st.hasMoreTokens()) { String t = st.nextToken(); try { total += Double.parseDouble(t); } catch (NumberFormatException e) { } }\nSystem.out.printf(\"%.2f%n\", total);"
+  }
+ ]
+}

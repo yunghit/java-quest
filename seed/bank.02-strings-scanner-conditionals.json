@@ -1,0 +1,103 @@
+{
+ "bank": [
+  {
+   "topic": 2,
+   "type": "mc",
+   "q": "\"Java\".indexOf('v') returns?",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "-1"
+   ],
+   "answer": 1,
+   "why": "J=0, a=1, v=2."
+  },
+  {
+   "topic": 2,
+   "type": "mc",
+   "q": "Which compares String text?",
+   "options": [
+    "==",
+    "equals()",
+    "=",
+    "compare"
+   ],
+   "answer": 1,
+   "why": "equals()."
+  },
+  {
+   "topic": 2,
+   "type": "mc",
+   "q": "After nextInt(), what does nextLine() return?",
+   "options": [
+    "The next line",
+    "An empty string",
+    "null",
+    "An error"
+   ],
+   "answer": 1,
+   "why": "The leftover Enter."
+  },
+  {
+   "topic": 2,
+   "type": "mc",
+   "q": "Which keyword stops fall-through in switch?",
+   "options": [
+    "stop",
+    "exit",
+    "break",
+    "end"
+   ],
+   "answer": 2,
+   "why": "break."
+  },
+  {
+   "topic": 2,
+   "type": "mc",
+   "q": "\"abc\".toUpperCase() returns?",
+   "options": [
+    "abc",
+    "ABC",
+    "Abc",
+    "error"
+   ],
+   "answer": 1,
+   "why": "A new String."
+  },
+  {
+   "topic": 2,
+   "type": "mc",
+   "q": "score = 55: if(score>=75) A else if(score>=50) B else C. Result?",
+   "options": [
+    "A",
+    "B",
+    "C",
+    "none"
+   ],
+   "answer": 1,
+   "why": "First true branch."
+  },
+  {
+   "topic": 2,
+   "type": "short",
+   "q": "Explain why == should not be used to compare Strings.",
+   "model": "== compares object addresses, so two Strings with the same text may be different objects; equals() compares the characters.",
+   "marks": 3
+  },
+  {
+   "topic": 2,
+   "type": "short",
+   "q": "When would you use switch instead of if/else?",
+   "model": "When one value is compared against several exact constants (days, menu choices); if/else is better for ranges.",
+   "marks": 3
+  },
+  {
+   "topic": 2,
+   "type": "project",
+   "title": "Mini project: Grade report",
+   "brief": "Read a student's name (nextLine) and a mark (nextInt). Print the name in upper case and the grade: Distinction 75+, Merit 60+, Pass 50+, otherwise Fail.",
+   "solution": "Scanner sc = new Scanner(System.in);\nString name = sc.nextLine();\nint m = sc.nextInt();\nString g = m >= 75 ? \"Distinction\" : m >= 60 ? \"Merit\" : m >= 50 ? \"Pass\" : \"Fail\";\nSystem.out.println(name.toUpperCase() + \": \" + g);"
+  }
+ ]
+}

@@ -1,0 +1,125 @@
+[
+ {
+  "order": 10,
+  "emoji": "🛡️",
+  "title": "10 · Exception Handling (Deep Dive)",
+  "learn": "<h3>The story: the safety net</h3><p>A trapeze artist works over a net. Code that might fail (a missing file, dividing by zero) is the trapeze; the exception handler is the net. An <b>exception</b> is an event at <b>run time</b> that breaks the normal flow. Unhandled, the program crashes and prints a <b>stack trace</b>. Handled, you show a friendly message and carry on.</p><h3>try, catch, finally</h3><p><b>try</b> holds the risky code. <b>catch (Type e)</b> runs only if that type of problem occurs. <b>finally</b> runs <b>always</b> (cleanup like closing files), error or not. A try needs at least one catch or a finally. <code>e.getMessage()</code> gives the error text. If an exception occurs, the rest of the try block is skipped.</p><h3>Multiple catches</h3><p>Java checks catches <b>in order</b> and runs the <b>first match</b>. Put <b>specific</b> types first and <b>general</b> (Exception) last; the other order will not compile because the specific block becomes unreachable. Since Java 7 you can combine with <code>catch (A | B e)</code>.</p><h3>Common exceptions</h3><p><b>ArithmeticException</b>: int divide by zero. <b>NullPointerException</b>: using a null reference. <b>ArrayIndexOutOfBoundsException</b>: bad index. <b>NumberFormatException</b>: Integer.parseInt(\"abc\"). <b>ClassCastException</b>: bad cast. <b>InputMismatchException</b>: Scanner expected a number. <b>FileNotFoundException</b> and <b>IOException</b>: file problems. <b>SQLException</b>: database problems.</p><h3>The hierarchy</h3><p>Throwable splits into <b>Error</b> (serious, do not catch, e.g. OutOfMemoryError) and <b>Exception</b>. Under Exception, <b>RuntimeException</b> and its children are <b>unchecked</b>; everything else (IOException, SQLException) is <b>checked</b>.</p><h3>Checked vs unchecked</h3><p><b>Checked</b>: verified at <b>compile time</b>; you <b>must</b> handle (try/catch) or declare (throws). <b>Unchecked</b>: happen at run time; handling is optional (they usually mean a bug to fix).</p><h3>throw vs throws</h3><p><b>throw</b> <i>triggers</i> an exception inside a method body: <code>throw new IllegalArgumentException(\"Age cannot be negative\");</code>. <b>throws</b> <i>declares</i> in the signature that a method may pass a checked exception to its caller: <code>void read() throws IOException</code>.</p><h3>Custom exceptions</h3><p>Extend Exception (checked) or RuntimeException (unchecked) and pass a message up with super: a class named InsufficientFundsException. This ties inheritance to exceptions.</p><h3>try-with-resources and best practice</h3><p>Resources opened in the try parentheses are closed automatically in reverse order. Best practice: catch specific types, never leave a catch empty, handle only what you can actually fix, and clean up in finally or with try-with-resources.</p>",
+  "code": "public class Bank {\n    static class InsufficientFundsException extends Exception {\n        InsufficientFundsException(String msg) { super(msg); }   // custom checked\n    }\n    private double balance = 100;\n\n    void withdraw(double amt) throws InsufficientFundsException {  // declares\n        if (amt <= 0) throw new IllegalArgumentException(\"Amount must be positive\"); // triggers\n        if (amt > balance) throw new InsufficientFundsException(\"Balance too low\");\n        balance -= amt;\n    }\n    public static void main(String[] args) {\n        Bank b = new Bank();\n        try {\n            b.withdraw(500);\n            System.out.println(\"done\");           // skipped when exception occurs\n        } catch (InsufficientFundsException e) {  // specific first\n            System.out.println(\"Declined: \" + e.getMessage());\n        } catch (Exception e) {                   // general last\n            System.out.println(\"Other: \" + e.getMessage());\n        } finally {\n            System.out.println(\"Always runs\");\n        }\n        try {\n            int x = Integer.parseInt(\"abc\");\n        } catch (NumberFormatException e) {\n            System.out.println(\"Not a number\");\n        }\n    }\n}",
+  "quiz": [
+   {
+    "q": "int x = 10 / 0 throws?",
+    "options": [
+     "ArithmeticException",
+     "NullPointerException",
+     "IOException",
+     "None"
+    ],
+    "answer": 0,
+    "why": "It is unchecked."
+   },
+   {
+    "q": "When does finally run?",
+    "options": [
+     "Only on error",
+     "Only on success",
+     "Always",
+     "Never"
+    ],
+    "answer": 2,
+    "why": "Cleanup code."
+   },
+   {
+    "q": "Which is checked?",
+    "options": [
+     "NullPointerException",
+     "ArithmeticException",
+     "IOException",
+     "ArrayIndexOutOfBoundsException"
+    ],
+    "answer": 2,
+    "why": "IOException extends Exception, not RuntimeException."
+   },
+   {
+    "q": "Where does throws go?",
+    "options": [
+     "Method signature",
+     "Inside catch",
+     "Before try",
+     "In finally"
+    ],
+    "answer": 0,
+    "why": "void read() throws IOException."
+   },
+   {
+    "q": "What does the throw keyword do?",
+    "options": [
+     "Declares",
+     "Triggers an exception",
+     "Catches",
+     "Closes"
+    ],
+    "answer": 1,
+    "why": "throw new ...;"
+   },
+   {
+    "q": "Catch order: Exception first then ArithmeticException. Result?",
+    "options": [
+     "Works",
+     "Compile error",
+     "Runs both",
+     "Warning only"
+    ],
+    "answer": 1,
+    "why": "The second is unreachable."
+   },
+   {
+    "q": "Integer.parseInt(\"abc\") throws?",
+    "options": [
+     "NumberFormatException",
+     "ArithmeticException",
+     "IOException",
+     "None"
+    ],
+    "answer": 0,
+    "why": "A subclass of IllegalArgumentException."
+   },
+   {
+    "q": "Checked exceptions are verified at?",
+    "options": [
+     "Run time",
+     "Compile time",
+     "Never",
+     "Load time"
+    ],
+    "answer": 1,
+    "why": "You must handle or declare."
+   },
+   {
+    "q": "A custom checked exception extends?",
+    "options": [
+     "Error",
+     "Exception",
+     "Throwable only",
+     "Object"
+    ],
+    "answer": 1,
+    "why": "Use RuntimeException for unchecked."
+   },
+   {
+    "q": "Best practice for catch blocks?",
+    "options": [
+     "Leave them empty",
+     "Catch specific types and handle meaningfully",
+     "Always catch Throwable",
+     "Never use finally"
+    ],
+    "answer": 1,
+    "why": "Empty catches hide bugs."
+   }
+  ],
+  "lab": {
+   "task": "Write readAge(String text) that converts text to int and throws IllegalArgumentException if it is below 0 or above 120. In main call it with 'abc', '-5' and '30', handling NumberFormatException and IllegalArgumentException separately, with a finally that prints 'checked'.",
+   "solution": "static int readAge(String t) {\n  int a = Integer.parseInt(t);\n  if (a < 0 || a > 120) throw new IllegalArgumentException(\"Age out of range\");\n  return a;\n}\npublic static void main(String[] args) {\n  for (String t : new String[]{\"abc\", \"-5\", \"30\"}) {\n    try {\n      System.out.println(readAge(t));\n    } catch (NumberFormatException e) {\n      System.out.println(\"Not a number\");\n    } catch (IllegalArgumentException e) {\n      System.out.println(e.getMessage());\n    } finally {\n      System.out.println(\"checked\");\n    }\n  }\n}"
+  }
+ }
+]

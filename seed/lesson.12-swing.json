@@ -1,0 +1,125 @@
+[
+ {
+  "order": 12,
+  "emoji": "🖼️",
+  "title": "12 · Java Swing GUI (Deep Dive)",
+  "learn": "<h3>The story: building a stage</h3><p>Console programs are a conversation: the program asks, you answer, in order. A GUI is a <b>stage</b> where the audience can do anything at any time, so Swing is <b>event-driven</b>: your code sits quietly and runs <b>only when the user does something</b>. Swing lives in <code>javax.swing</code> and is built on the older AWT (<code>java.awt</code>), so you usually import both.</p><h3>The containment tree</h3><p><b>JFrame</b> is the picture frame (title bar, close button). <b>JPanel</b> is a tray you arrange things on. Components go on the tray: <b>JLabel</b> (read-only text), <b>JTextField</b> (type here, read with getText()), <b>JPasswordField</b> (dots; getPassword() returns char[]), <b>JButton</b> (clickable), <b>JRadioButton</b> (pick one, needs a ButtonGroup), <b>JCheckBox</b> (independent on/off). Use isSelected() on radio buttons and checkboxes.</p><h3>Making a window appear</h3><p>setSize(w,h), setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE) (else closing the window leaves the program running), setLocationRelativeTo(null) to centre, and finally <b>setVisible(true)</b>. Forget the last one and nothing shows.</p><h3>Layout managers: the stage hands</h3><p>Without one you would hand-place every pixel and everything breaks on resize. <b>FlowLayout</b>: left to right, wraps; JPanel's default. <b>BorderLayout</b>: NORTH, SOUTH, EAST, WEST, CENTER (CENTER stretches); JFrame's default; one component per region, so put a JPanel in a region to hold several. <b>GridLayout(rows, cols)</b>: equal cells filled left to right, top to bottom. <b>CardLayout</b>: stacked panels, one visible, switched with show(container, name), great for login then dashboard. Absolute positioning (setLayout(null) plus setBounds) works but is discouraged. Layouts can nest: a BorderLayout frame whose CENTER holds a GridLayout panel is the classic form.</p><h3>Events: making buttons alive</h3><p>A button does nothing until you attach an <b>ActionListener</b>, an object that waits for the click. <code>btn.addActionListener(e -> { ... });</code> The code in braces runs on every click. <code>e.getSource()</code> tells you which component fired when one listener serves many buttons, and <code>e.getActionCommand()</code> gives the button's text (handy in a switch). A JTextField fires an action when Enter is pressed. Mouse activity uses MouseListener (pressed, released, clicked, entered, exited) and MouseMotionListener (dragged, moved); the Adapter classes let you override just one method. <code>JOptionPane.showMessageDialog(frame, \"text\")</code> pops up a message.</p><h3>Reading input safely</h3><p>getText() always returns a String. Convert with Integer.parseInt or Double.parseDouble and wrap it in try/catch for NumberFormatException so typing letters shows a friendly message instead of crashing.</p><h3>GUI plus database</h3><p>The classic Section C answer: GridLayout form in CENTER, Save button in a SOUTH panel, a listener that reads the fields, converts numbers, calls db.insert(...), and reports success or failure with JOptionPane.</p><h3>Exam checklist</h3><p>Imports. JFrame created and configured. Panel and layout chosen. Components added to the right regions. Listener attached with lambda. setVisible(true) last.</p>",
+  "code": "import javax.swing.*;\nimport java.awt.*;\n\npublic class AddForm {\n    public static void main(String[] args) {\n        JFrame f = new JFrame(\"Add Numbers\");\n        f.setLayout(new BorderLayout());\n\n        JTextField a = new JTextField(8), b = new JTextField(8);\n        JLabel result = new JLabel(\"Result: \");\n\n        JPanel form = new JPanel(new GridLayout(3, 2));\n        form.add(new JLabel(\"First:\"));  form.add(a);\n        form.add(new JLabel(\"Second:\")); form.add(b);\n        form.add(result);\n\n        JButton add = new JButton(\"Add\");\n        JPanel south = new JPanel();\n        south.add(add);\n\n        add.addActionListener(e -> {\n            try {\n                double sum = Double.parseDouble(a.getText()) + Double.parseDouble(b.getText());\n                result.setText(\"Result: \" + sum);\n            } catch (NumberFormatException ex) {\n                JOptionPane.showMessageDialog(f, \"Please enter numbers only\");\n            }\n        });\n\n        f.add(form, BorderLayout.CENTER);\n        f.add(south, BorderLayout.SOUTH);\n        f.setSize(300, 180);\n        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n        f.setLocationRelativeTo(null);\n        f.setVisible(true);\n    }\n}",
+  "quiz": [
+   {
+    "q": "Which call makes a JFrame visible?",
+    "options": [
+     "show()",
+     "setVisible(true)",
+     "display()",
+     "open()"
+    ],
+    "answer": 1,
+    "why": "Nothing appears without it."
+   },
+   {
+    "q": "JPanel's default layout?",
+    "options": [
+     "BorderLayout",
+     "FlowLayout",
+     "GridLayout",
+     "CardLayout"
+    ],
+    "answer": 1,
+    "why": "JFrame's is BorderLayout."
+   },
+   {
+    "q": "How many components can one BorderLayout region hold?",
+    "options": [
+     "One",
+     "Two",
+     "Unlimited",
+     "Five"
+    ],
+    "answer": 0,
+    "why": "Put a panel there to hold more."
+   },
+   {
+    "q": "new GridLayout(2, 3) means?",
+    "options": [
+     "2 columns, 3 rows",
+     "2 rows, 3 columns",
+     "6 rows",
+     "3 cards"
+    ],
+    "answer": 1,
+    "why": "rows first."
+   },
+   {
+    "q": "A button does nothing until?",
+    "options": [
+     "It is added to a panel",
+     "An ActionListener is attached",
+     "setVisible is called",
+     "It is static"
+    ],
+    "answer": 1,
+    "why": "addActionListener."
+   },
+   {
+    "q": "Which keeps radio buttons mutually exclusive?",
+    "options": [
+     "JPanel",
+     "ButtonGroup",
+     "CardLayout",
+     "JCheckBox"
+    ],
+    "answer": 1,
+    "why": "Add each radio button to one ButtonGroup."
+   },
+   {
+    "q": "JPasswordField.getPassword() returns?",
+    "options": [
+     "String",
+     "char[]",
+     "int",
+     "Object"
+    ],
+    "answer": 1,
+    "why": "For security it returns char[]."
+   },
+   {
+    "q": "Which layout shows one panel at a time?",
+    "options": [
+     "FlowLayout",
+     "GridLayout",
+     "CardLayout",
+     "BorderLayout"
+    ],
+    "answer": 2,
+    "why": "Switch with cardLayout.show()."
+   },
+   {
+    "q": "Why catch NumberFormatException in a GUI?",
+    "options": [
+     "getText() may not be a number",
+     "Swing requires it",
+     "It speeds things up",
+     "Buttons throw it"
+    ],
+    "answer": 0,
+    "why": "Users can type letters."
+   },
+   {
+    "q": "Which does JFrame.EXIT_ON_CLOSE do?",
+    "options": [
+     "Hides the window",
+     "Ends the program when the window closes",
+     "Minimises",
+     "Nothing"
+    ],
+    "answer": 1,
+    "why": "Otherwise the program keeps running."
+   }
+  ],
+  "lab": {
+   "task": "Build a login window: a JTextField for username, JPasswordField for password, a Login button in the SOUTH. On click, if the username is admin and the password is 1234 show Welcome, otherwise Wrong login, using JOptionPane.",
+   "solution": "JFrame f = new JFrame(\"Login\");\nJTextField u = new JTextField(10);\nJPasswordField p = new JPasswordField(10);\nJPanel form = new JPanel(new GridLayout(2, 2));\nform.add(new JLabel(\"User:\")); form.add(u);\nform.add(new JLabel(\"Pass:\")); form.add(p);\nJButton go = new JButton(\"Login\");\nJPanel south = new JPanel(); south.add(go);\ngo.addActionListener(e -> {\n  String pw = new String(p.getPassword());\n  if (u.getText().equals(\"admin\") && pw.equals(\"1234\"))\n    JOptionPane.showMessageDialog(f, \"Welcome\");\n  else JOptionPane.showMessageDialog(f, \"Wrong login\");\n});\nf.add(form, BorderLayout.CENTER); f.add(south, BorderLayout.SOUTH);\nf.setSize(260, 150); f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); f.setVisible(true);"
+  }
+ }
+]

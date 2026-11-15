@@ -1,0 +1,136 @@
+{
+ "bank": [
+  {
+   "topic": 9,
+   "type": "mc",
+   "q": "Which is true of Java inheritance?",
+   "options": [
+    "A class can extend two classes",
+    "A class extends exactly one class",
+    "Constructors are inherited",
+    "private members are directly usable in the child"
+   ],
+   "answer": 1,
+   "why": "Single inheritance."
+  },
+  {
+   "topic": 9,
+   "type": "mc",
+   "q": "What does super(name) do in a subclass constructor?",
+   "options": [
+    "Calls the parent constructor",
+    "Creates a new object",
+    "Overrides a method",
+    "Imports a class"
+   ],
+   "answer": 0,
+   "why": "It must be the first line."
+  },
+  {
+   "topic": 9,
+   "type": "mc",
+   "q": "Which is true of @Override?",
+   "options": [
+    "It is required",
+    "It makes the compiler check the method really overrides",
+    "It makes the method static",
+    "It hides the method"
+   ],
+   "answer": 1,
+   "why": "Optional but safe."
+  },
+  {
+   "topic": 9,
+   "type": "mc",
+   "q": "Parent p = new Child(); p.childOnly(); gives?",
+   "options": [
+    "Works",
+    "Compile error: Parent has no childOnly()",
+    "Runtime error",
+    "Prints null"
+   ],
+   "answer": 1,
+   "why": "Cast first, after instanceof."
+  },
+  {
+   "topic": 9,
+   "type": "mc",
+   "q": "Which does NOT show polymorphism?",
+   "options": [
+    "Overriding",
+    "Overloading",
+    "Parent reference to child object",
+    "Declaring two separate unrelated classes"
+   ],
+   "answer": 3,
+   "why": "Unrelated classes share no behaviour."
+  },
+  {
+   "topic": 9,
+   "type": "mc",
+   "q": "Every class in Java extends?",
+   "options": [
+    "Class",
+    "Object",
+    "Main",
+    "Super"
+   ],
+   "answer": 1,
+   "why": "Object gives toString, equals, hashCode."
+  },
+  {
+   "topic": 9,
+   "type": "mc",
+   "q": "Which method can a subclass override?",
+   "options": [
+    "private",
+    "static",
+    "public instance",
+    "final"
+   ],
+   "answer": 2,
+   "why": "Private, static and final cannot be overridden."
+  },
+  {
+   "topic": 9,
+   "type": "mc",
+   "q": "Child c = (Child) new Parent(); at run time throws?",
+   "options": [
+    "ClassCastException",
+    "NullPointerException",
+    "ArithmeticException",
+    "Nothing"
+   ],
+   "answer": 0,
+   "why": "The real object is a Parent."
+  },
+  {
+   "topic": 9,
+   "type": "short",
+   "q": "Explain polymorphism with a short example.",
+   "model": "A parent reference can hold any child object and the real object decides which overridden method runs: Animal a = new Dog(); a.sound() prints Woof.",
+   "marks": 4
+  },
+  {
+   "topic": 9,
+   "type": "short",
+   "q": "Can you override a private or static method? Explain.",
+   "model": "No. Private methods are invisible to the subclass; a same-signature static method hides the parent's (method hiding) rather than overriding it.",
+   "marks": 3
+  },
+  {
+   "topic": 9,
+   "type": "short",
+   "q": "State two differences between overloading and overriding.",
+   "model": "Overloading: same class, different parameters, compile-time. Overriding: subclass, same signature, run-time.",
+   "marks": 4
+  },
+  {
+   "topic": 9,
+   "type": "project",
+   "title": "Mini project: Zoo",
+   "brief": "Write Animal (name, sound()), Dog, Cat and Cow that override sound(), and a Zoo class holding an ArrayList<Animal> that prints every animal's sound in one loop. Add a Bird later without changing Zoo.",
+   "solution": "class Zoo {\n  ArrayList<Animal> list = new ArrayList<>();\n  void add(Animal a) { list.add(a); }\n  void chorus() { for (Animal a : list) System.out.println(a.name + \": \" + a.sound()); }\n}\n// Bird extends Animal with its own sound() works with no change to Zoo"
+  }
+ ]
+}

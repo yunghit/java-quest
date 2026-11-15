@@ -1,0 +1,125 @@
+[
+ {
+  "order": 1,
+  "emoji": "🧱",
+  "title": "1 · Java Platform & Types (Deep Dive)",
+  "learn": "<h3>The story: a universal translator</h3><p>Imagine writing a speech once and having it understood in every country, because a translator in each country knows one shared “travel language”. That is Java. You write <b>source code</b> (.java). The compiler <b>javac</b> turns it into <b>bytecode</b> (.class), the shared travel language. Each computer has a <b>JVM</b> that reads bytecode and runs it. Hence “write once, run anywhere”: <b>platform independent</b>.</p><h3>JDK vs JRE vs JVM</h3><p>Think of a restaurant. The <b>JDK</b> (Development Kit) is the whole kitchen: compiler plus tools, needed to <i>write</i> Java. The <b>JRE</b> (Runtime Environment) holds the libraries a program needs to run, enough for a diner to <i>eat</i>. The <b>JVM</b> (Virtual Machine) is the chef who executes the bytecode: class loader plus execution engine. Exam answer: three stages = write source, compile to bytecode, JVM executes. Always draw the arrows.</p><h3>Why Java is popular</h3><p>Platform independent, object-oriented, <b>strongly and statically typed</b> (every variable has a declared type checked before running), automatic memory management (the <b>garbage collector</b> frees unused objects), robust, and multi-threaded (several tasks at once).</p><h3>Variables: labelled boxes</h3><p>A variable is a named box. The <b>type</b> decides the box size and what fits inside. Declare it, then assign it: <code>int age = 21;</code></p><h3>The 8 primitives</h3><p>Whole numbers grow: <b>byte</b> 8 bits (-128 to 127), <b>short</b> 16, <b>int</b> 32 (about ±2.1 billion), <b>long</b> 64 (needs an L: 8000000000L). Decimals: <b>float</b> 32 bits (6-7 digits, needs an f: 3.14f) and <b>double</b> 64 bits (about 15 digits, the default). <b>char</b> is one character in <b>single quotes</b> ('A'), 16 bits. <b>boolean</b> is only true or false. A String is not a primitive, it uses double quotes.</p><h3>Primitive vs reference</h3><p>A primitive box holds the <b>value itself</b> and can never be null. A reference box holds an <b>address</b> pointing to an object on the heap (String, arrays, your classes) and can be null. Calling a method on null causes the famous NullPointerException.</p><h3>Casting and overflow</h3><p>Small to big is automatic (int to double). Big to small needs a cast and loses data: <code>int x = (int) 3.99;</code> gives 3 (it truncates, it does not round). Integer division chops decimals: 7 / 2 is 3, while 7 / 2.0 is 3.5. % is the remainder (7 % 2 is 1; n % 2 == 0 tests even).</p><h3>Names and style</h3><p>Rules (compile errors if broken): letters, digits, _ and $, cannot start with a digit, no reserved words, case-sensitive. Conventions: camelCase for variables and methods, PascalCase for classes, SCREAMING_SNAKE_CASE for constants declared with <b>final</b>.</p><h3>Basic syntax</h3><p>Statements end with ;. Blocks use { }. The file name must match the public class name. Comments: // line and /* block */. The entry point is <code>public static void main(String[] args)</code>.</p>",
+  "code": "public class Types {\n    public static void main(String[] args) {\n        final double VAT = 0.15;          // constant\n        int apples = 7, people = 2;\n        System.out.println(apples / people);        // 3  (integer division)\n        System.out.println((double) apples / people); // 3.5\n        System.out.println(apples % people);        // 1\n        int chopped = (int) 3.99;                   // 3\n        char grade = 'A';\n        System.out.println(grade + 1);              // 66 (char becomes number)\n        System.out.println((char)(grade + 1));      // B\n        String s = null;                            // allowed: reference type\n        // s.length();  -> NullPointerException\n    }\n}",
+  "quiz": [
+   {
+    "q": "Which tool turns .java into bytecode?",
+    "options": [
+     "JVM",
+     "javac",
+     "JRE",
+     "java"
+    ],
+    "answer": 1,
+    "why": "javac compiles, the JVM runs."
+   },
+   {
+    "q": "Which can hold null?",
+    "options": [
+     "int",
+     "double",
+     "boolean",
+     "String"
+    ],
+    "answer": 3,
+    "why": "Only reference types."
+   },
+   {
+    "q": "long x = 8000000000; fails. Fix?",
+    "options": [
+     "Add L",
+     "Use int",
+     "Add f",
+     "Use char"
+    ],
+    "answer": 0,
+    "why": "long literals need L."
+   },
+   {
+    "q": "Value of 7 / 2 with ints?",
+    "options": [
+     "3.5",
+     "3",
+     "4",
+     "2"
+    ],
+    "answer": 1,
+    "why": "Integer division truncates."
+   },
+   {
+    "q": "Value of (int) 3.99?",
+    "options": [
+     "4",
+     "3",
+     "3.99",
+     "Error"
+    ],
+    "answer": 1,
+    "why": "Casting truncates."
+   },
+   {
+    "q": "Which is a valid variable name?",
+    "options": [
+     "2name",
+     "my-name",
+     "_total",
+     "class"
+    ],
+    "answer": 2,
+    "why": "Cannot start with a digit, no hyphens, no keywords."
+   },
+   {
+    "q": "float needs which suffix on literals?",
+    "options": [
+     "L",
+     "f",
+     "d",
+     "none"
+    ],
+    "answer": 1,
+    "why": "3.14f."
+   },
+   {
+    "q": "What does JRE contain per the notes?",
+    "options": [
+     "Compiler",
+     "Java class libraries",
+     "Editor",
+     "Debugger only"
+    ],
+    "answer": 1,
+    "why": "JDK has the compiler."
+   },
+   {
+    "q": "Which is NOT a characteristic of Java?",
+    "options": [
+     "Platform independent",
+     "Object oriented",
+     "Manual memory freeing",
+     "Multi-threaded"
+    ],
+    "answer": 2,
+    "why": "The garbage collector frees memory."
+   },
+   {
+    "q": "What does System.out.println('A' + 1) print?",
+    "options": [
+     "A1",
+     "66",
+     "B",
+     "Error"
+    ],
+    "answer": 1,
+    "why": "char plus int is a number."
+   }
+  ],
+  "lab": {
+   "task": "Declare a constant TAX of 0.16, a double price of 250, compute total = price + price * TAX and print it. Then print price converted to a whole number with a cast.",
+   "solution": "final double TAX = 0.16;\ndouble price = 250;\ndouble total = price + price * TAX;\nSystem.out.println(total);        // 290.0\nSystem.out.println((int) price);  // 250"
+  }
+ }
+]

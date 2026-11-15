@@ -1,0 +1,125 @@
+[
+ {
+  "order": 11,
+  "emoji": "🗄️",
+  "title": "11 · JDBC & MySQL (Deep Dive)",
+  "learn": "<h3>The story: talking to a filing cabinet</h3><p>Variables vanish when your program ends. A <b>database</b> is a filing cabinet that remembers. <b>MySQL</b> is the cabinet, <b>SQL</b> is the language you speak to it, and <b>JDBC</b> (Java Database Connectivity) is the interpreter between your Java and the cabinet. Layers: your app, the JDBC API (java.sql), the <b>driver</b> (MySQL Connector/J, the translator), then MySQL.</p><h3>Tables and keys</h3><p>A table is a spreadsheet: columns (id, name, age, gpa) and rows (one student each). A <b>PRIMARY KEY</b> is a column that is unique per row, so no two students share an id.</p><h3>Connecting</h3><p>You need a URL, a username and a password. URL anatomy: <code>jdbc:mysql://localhost:3306/school</code> = protocol, host (localhost is your own machine), port 3306 (MySQL's default), database name. <code>DriverManager.getConnection(url, user, pass)</code> returns a <b>Connection</b>, your open phone line to the database. It can fail (wrong password, server off), so it throws <b>SQLException</b> and you must handle it. Modern JDBC loads the driver by itself, no Class.forName needed.</p><h3>Statement vs PreparedStatement</h3><p>A Statement sends raw SQL text. If you glue user input into it, a hacker can type SQL into your text box and wreck the table: <b>SQL injection</b>. A <b>PreparedStatement</b> uses <b>?</b> placeholders you fill with setInt, setString and setDouble (positions count from <b>1</b>), so input is treated as data, never as code. It is also precompiled, so faster when reused. Default to PreparedStatement whenever input is involved.</p><h3>CRUD</h3><p><b>C</b>reate = INSERT, <b>R</b>ead = SELECT, <b>U</b>pdate = UPDATE, <b>D</b>elete = DELETE. Rule: anything that <b>changes</b> data uses <code>executeUpdate()</code> (returns rows affected); anything that <b>reads</b> uses <code>executeQuery()</code> (returns a <b>ResultSet</b>). A ResultSet is a cursor sitting above the first row: <code>rs.next()</code> moves down one row and returns false at the end, so it lives in a while loop. Read with getInt(\"id\"), getString(\"name\"), getDouble(\"gpa\").</p><p>Danger: UPDATE or DELETE <b>without WHERE</b> hits every row, and there is no undo.</p><h3>Closing resources</h3><p>Connections, statements and result sets hold real resources. <b>try-with-resources</b> closes them automatically in reverse order, even when an error occurs.</p><h3>Workflow to memorise</h3><p>1 load driver (automatic), 2 open Connection, 3 create PreparedStatement, 4 set parameters, 5 execute, 6 process ResultSet, 7 close. Common errors: Access denied (wrong login), Unknown database, Table doesn't exist, Duplicate entry (repeated primary key), error in your SQL syntax.</p><h3>Good design</h3><p>Put database code in its own class (insert, getRecords, delete) and let the GUI just call it. Examiners reward the separation.</p>",
+  "code": "import java.sql.*;\nimport java.util.ArrayList;\n\npublic class StudentDB {\n    private final String url = \"jdbc:mysql://localhost:3306/school\";\n    private final String user = \"root\", pass = \"yourPassword\";\n\n    public boolean insert(int id, String name, int age, double gpa) {\n        String sql = \"INSERT INTO students (id, name, age, gpa) VALUES (?, ?, ?, ?)\";\n        try (Connection c = DriverManager.getConnection(url, user, pass);\n             PreparedStatement ps = c.prepareStatement(sql)) {\n            ps.setInt(1, id); ps.setString(2, name); ps.setInt(3, age); ps.setDouble(4, gpa);\n            ps.executeUpdate();\n            return true;\n        } catch (SQLException e) { return false; }\n    }\n\n    public ArrayList<String> names() {\n        ArrayList<String> out = new ArrayList<>();\n        try (Connection c = DriverManager.getConnection(url, user, pass);\n             Statement st = c.createStatement();\n             ResultSet rs = st.executeQuery(\"SELECT name FROM students\")) {\n            while (rs.next()) out.add(rs.getString(\"name\"));\n        } catch (SQLException e) { System.out.println(e.getMessage()); }\n        return out;\n    }\n}",
+  "quiz": [
+   {
+    "q": "Which method runs a SELECT?",
+    "options": [
+     "executeUpdate",
+     "executeQuery",
+     "executeRead",
+     "run"
+    ],
+    "answer": 1,
+    "why": "Queries read data."
+   },
+   {
+    "q": "Which method runs INSERT, UPDATE and DELETE?",
+    "options": [
+     "executeQuery",
+     "executeUpdate",
+     "getResult",
+     "next"
+    ],
+    "answer": 1,
+    "why": "Changes use executeUpdate."
+   },
+   {
+    "q": "In ps.setString(2, \"Kabo\") what is 2?",
+    "options": [
+     "The value",
+     "The position of the second ?",
+     "The column width",
+     "The row"
+    ],
+    "answer": 1,
+    "why": "Positions start at 1."
+   },
+   {
+    "q": "Why is PreparedStatement safer?",
+    "options": [
+     "It is faster only",
+     "It blocks SQL injection through placeholders",
+     "It needs no connection",
+     "It auto-commits"
+    ],
+    "answer": 1,
+    "why": "Input is data, not code."
+   },
+   {
+    "q": "DELETE FROM students (no WHERE) does what?",
+    "options": [
+     "Nothing",
+     "Deletes every row",
+     "Deletes the first row",
+     "Errors"
+    ],
+    "answer": 1,
+    "why": "No WHERE means all rows."
+   },
+   {
+    "q": "What does rs.next() return at the end of results?",
+    "options": [
+     "true",
+     "false",
+     "null",
+     "0"
+    ],
+    "answer": 1,
+    "why": "Hence while (rs.next())."
+   },
+   {
+    "q": "Default MySQL port?",
+    "options": [
+     "8080",
+     "3306",
+     "1521",
+     "443"
+    ],
+    "answer": 1,
+    "why": "jdbc:mysql://localhost:3306/db."
+   },
+   {
+    "q": "What does try-with-resources do?",
+    "options": [
+     "Catches all errors",
+     "Closes resources automatically",
+     "Speeds queries",
+     "Opens a connection"
+    ],
+    "answer": 1,
+    "why": "Closes in reverse order."
+   },
+   {
+    "q": "Wrong password produces?",
+    "options": [
+     "Unknown database",
+     "Access denied SQLException",
+     "Syntax error",
+     "Duplicate entry"
+    ],
+    "answer": 1,
+    "why": "Access denied."
+   },
+   {
+    "q": "Which exception must JDBC code handle?",
+    "options": [
+     "IOException",
+     "SQLException",
+     "ArithmeticException",
+     "ClassCastException"
+    ],
+    "answer": 1,
+    "why": "Database operations throw SQLException."
+   }
+  ],
+  "lab": {
+   "task": "Add to StudentDB: update(int id, double gpa) returning boolean, and delete(int id) returning boolean, both with PreparedStatement and try-with-resources.",
+   "solution": "public boolean update(int id, double gpa) {\n  String sql = \"UPDATE students SET gpa = ? WHERE id = ?\";\n  try (Connection c = DriverManager.getConnection(url, user, pass);\n       PreparedStatement ps = c.prepareStatement(sql)) {\n    ps.setDouble(1, gpa); ps.setInt(2, id);\n    return ps.executeUpdate() > 0;\n  } catch (SQLException e) { return false; }\n}\npublic boolean delete(int id) {\n  String sql = \"DELETE FROM students WHERE id = ?\";\n  try (Connection c = DriverManager.getConnection(url, user, pass);\n       PreparedStatement ps = c.prepareStatement(sql)) {\n    ps.setInt(1, id);\n    return ps.executeUpdate() > 0;\n  } catch (SQLException e) { return false; }\n}"
+  }
+ }
+]
