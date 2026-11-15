@@ -126,7 +126,7 @@ git init
 git add .
 git commit -m "first version"
 git branch -M main
-git remote add origin https://github.com/YOUR-NAME/java-quest.git
+git remote add origin https://github.com/yunghit/java-quest.git
 git push -u origin main
 ```
 
@@ -142,8 +142,8 @@ Make sure `.env` is **not** pushed (add a `.gitignore` file containing `.env` an
 | `VITE_FB_APP_ID` | Firebase appId |
 | `VITE_CLD_CLOUD` | Cloudinary cloud name |
 | `VITE_CLD_PRESET` | Cloudinary preset name |
-| `CLOUDFLARE_API_TOKEN` | from Section 8 |
-| `CLOUDFLARE_ACCOUNT_ID` | from Section 8 |
+| `CLOUDFLARE_API_TOKEN` | token |
+| `CLOUDFLARE_ACCOUNT_ID` |account |
 
 ---
 

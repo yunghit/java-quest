@@ -1,3 +1,4 @@
+import AdminStats from "./AdminStats";
 import { useEffect, useState } from "react"; import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
 import { db, uploadImage } from "../firebase"; import type { Module } from "../types";
 const seeds = import.meta.glob("../../seed/*.json", { eager: true }) as Record<string, { default: any }>;
@@ -10,7 +11,7 @@ export default function Admin() {
   const importJson = async (file: File) => { const d = JSON.parse(await file.text()); if (d.bank) { for (const b of d.bank) await addDoc(collection(db, "questions"), b); setMsg(`Imported ${d.bank.length} questions`); return; } const arr: Module[] = d; for (const m of arr) await addDoc(collection(db, "modules"), m); setMsg(`Imported ${arr.length}`); load(); };
   const loadBuiltIn = async () => { const have = new Set(list.map(m => m.title)); let n = 0; for (const [path, mod] of Object.entries(seeds)) { const d = mod.default; if (Array.isArray(d)) { for (const m of d) if (!have.has(m.title)) { await addDoc(collection(db, "modules"), m); n++; } } else { await addDoc(collection(db, "exams"), d); n++; } } setMsg(`Loaded ${n} built-in item(s)`); load(); };
   const set = (k: keyof Module) => (e: any) => setF({ ...f, [k]: k === "order" ? +e.target.value : e.target.value });
-  return <div><div className="card"><button onClick={loadBuiltIn}>⚡ Load all built-in lessons and exams</button><p>{msg}</p></div><div className="card"><h3>{f.id ? "Edit" : "New"} lesson</h3><input placeholder="Title" value={f.title} onChange={set("title")} /><input placeholder="Emoji" value={f.emoji} onChange={set("emoji")} /><input type="number" placeholder="Order" value={f.order} onChange={set("order")} />
+  return <div><AdminStats /><div className="card"><button onClick={loadBuiltIn}>⚡ Load all built-in lessons and exams</button><p>{msg}</p></div><div className="card"><h3>{f.id ? "Edit" : "New"} lesson</h3><input placeholder="Title" value={f.title} onChange={set("title")} /><input placeholder="Emoji" value={f.emoji} onChange={set("emoji")} /><input type="number" placeholder="Order" value={f.order} onChange={set("order")} />
     <textarea rows={4} placeholder="Lesson (HTML)" value={f.learn} onChange={set("learn")} /><textarea rows={4} placeholder="Code" value={f.code} onChange={set("code")} />
     <textarea rows={4} placeholder='Quiz JSON: [{"q":"","options":["a","b"],"answer":0,"why":""}]' value={quiz} onChange={e => setQuiz(e.target.value)} />
     <input type="file" accept="image/*" onChange={async e => e.target.files?.[0] && setF({ ...f, imageUrl: await uploadImage(e.target.files[0]) })} />{f.imageUrl && <small>Image uploaded ✅</small>}
